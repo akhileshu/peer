@@ -1,0 +1,33 @@
+"use server";
+
+import {
+  FetchResponse,
+  MutateResponse,
+  fetchSuccess,
+  fetchError,
+  handleFetchAction,
+  handleMutateAction,
+  mutateSuccess,
+  mutateError,
+  mutateErrorNotLoggedIn,
+} from "@/lib/server-actions/handleAction";
+
+import { getServerUser } from "@/lib/auth/lib";
+import { myPrisma } from "@/lib/db/prisma";
+import { getMessage } from "@/lib/message/lib/get-message";
+
+// This is a {{operation}} operation
+export async function {{camelCase name}}(): Promise<{{#if (eq operation "read")}}FetchResponse<unknown>{{else}}MutateResponse<unknown>{{/if}}> {
+  return {{#if (eq operation "read")}}handleFetchAction{{else}}handleMutateAction{{/if}}(async () => {
+    const user = await getServerUser();
+    if (!user) return {{#if (eq operation "read")}}fetchError("Not logged in"){{else}}mutateErrorNotLoggedIn{{/if}};
+
+    // TODO: Implement logic for {{name}}
+
+    {{#if (eq operation "read")}}
+    return fetchSuccess({ result: "TODO: replace with real data" });
+    {{else}}
+    return mutateSuccess("{{pascalCase name}} success");
+    {{/if}}
+  });
+}

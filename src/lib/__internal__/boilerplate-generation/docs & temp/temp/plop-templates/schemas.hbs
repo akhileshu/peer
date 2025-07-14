@@ -1,0 +1,16 @@
+import { z } from "zod";
+
+export const {{camelCase name}}CreateSchema = z.object({
+  title: z.string().min(3, "Title too short"),
+  content: z.string().min(10, "Content too short"),
+});
+
+export const {{camelCase name}}UpdateSchema = z.object({
+  id: z.number(),
+  title: z.string().min(3, "Title too short"),
+  content: z.string().min(10, "Content too short"),
+});
+
+export const {{camelCase name}}DeleteSchema = z.object({
+  id: z.number(),
+});

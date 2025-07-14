@@ -1,0 +1,48 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.output": true,
+    "**/*.zip": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.git/**": true,
+    "**/.next/**": true,
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/package-lock.json": true,
+    "**/.next": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/vendor": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/.output": true,
+    "**/.nuxt": true,
+    // "**/.vscode": true,
+    "**/*.zip": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.next": true
+  },
+  "typescript.tsserver.maxTsServerMemory": 2048,
+  // "typescript.disableAutomaticTypeAcquisition": false
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  // == to ignore eslint problems in specific folder
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "eslint.validate": ["javascript", "typescript"],
+  "eslint.options": {
+    "ignorePattern": ["src/temp/**"]
+  },
+  //
+  "typescript.disableAutomaticProjectDetection": true
+}

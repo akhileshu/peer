@@ -1,0 +1,21 @@
+{{!-- Main Zod Schema File (isMainSchema) ==================================================================--}}
+{{!-- args:isMainSchema, type, name --}}
+{{#if isMainSchema}}
+import { z } from "zod";
+
+{{!-- createTemplateSchema --}}
+export const {{camelCaseJoin type name "Schema"}} = z.object({
+  // add more fields here
+}).strict(); // Using strict() to prevent unknown properties
+
+export type {{pascalCase name}} = z.infer<typeof {{camelCaseJoin type name "Schema"}}>;
+
+{{!-- Export Barrel File (isExportSchema) ==================================================================--}}
+{{!-- args:isExportSchema,zodSchemas:{type,resourceName}[] --}}
+{{else if isExportSchema}}
+
+{{#each zodSchemas}}
+export { {{camelCaseJoin type resourceName "Schema"}} } from "./{{kebabCaseJoin type resourceName "schema"}}";
+{{/each}}
+
+{{/if}}

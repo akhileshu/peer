@@ -1,0 +1,42 @@
+//we might not use this and rather go with timeline->phases structure
+enum MilestoneStatus {
+  OPEN
+  COMPLETED
+  CANCELLED
+}
+model Milestone {
+  id          String          @id @default(uuid())
+  name        String
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  status      MilestoneStatus @default(OPEN)
+
+  // project   Project   @relation(fields: [projectId], references: [id])
+  // projectId String
+//   features  Feature[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model MvpLaunchMilestone {
+  id         String           @id @default(uuid())
+  // mvpDetailId String
+  // mvpDetail   MVPDetail @relation(fields: [mvpDetailId], references: [id])
+
+  title      String           // e.g. "Beta Launch"
+  startDate    DateTime
+  dueDate    DateTime
+  status     MilestoneStatus
+}
+
+
+
+  // launchMilestones MvpLaunchMilestone[] // 📆 Key dates/phases for launch
+  // e.g. "Internal testing by June 5"
+  // [
+  //    { "title": "Idea Validation", "date": "2025-06-02" },
+  //    { "title": "Core Features Ready", "date": "2025-06-10" },
+  // ]
+
+  // phases Phase[] // Multiple phases like "Validation", "Development", "Launch"

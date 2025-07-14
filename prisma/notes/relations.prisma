@@ -1,0 +1,49 @@
+/*
+
+// One-to-One (1-1)
+model User {
+  id       String       @id @default(uuid())
+  profile  Profile?
+}
+model Profile {
+  id      String @id @default(uuid())
+  userId  String @unique
+  user    User   @relation(fields: [userId], references: [id])
+}
+
+// One-to-Many (1-n)
+model User {
+  id    String  @id @default(uuid())
+  posts Post[]
+}
+model Post {
+  id      String  @id @default(uuid())
+  userId  String
+  user    User    @relation(fields: [userId], references: [id])
+}
+
+
+
+// Many-to-Many (n-n)
+model Student {
+  id          String        @id @default(uuid())
+  name        String
+  enrollments Enrollment[]
+}
+model Course {
+  id          String        @id @default(uuid())
+  title       String
+  enrollments Enrollment[]
+}
+model Enrollment {
+  id         String   @id @default(uuid())
+  studentId  String
+  courseId   String
+
+  student    Student  @relation(fields: [studentId], references: [id])
+  course     Course   @relation(fields: [courseId], references: [id])
+
+  @@unique([studentId, courseId])
+}
+
+*/

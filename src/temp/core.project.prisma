@@ -1,0 +1,113 @@
+model Project {
+  id                String  @id @default(uuid())
+  name              String
+  category          String
+  description       String?
+  gitRepo           String?
+  documentationLink String?
+  hostedLink        String?
+  erdLink           String?
+
+  comments Comment[]
+
+  templateId String?
+  template   Template? @relation(fields: [templateId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  targetMarkets TargetMarket[] // 🎯 Who the product is for
+  // e.g. "Freelancers", "SaaS startups"
+
+  // objectives         Objective[]       // if OKRs are stored
+
+  MVPDetail MVPDetail?
+
+  projectTimelines ProjectTimeline[] // [q1,q2,q3]
+  features         Feature[] // [auth , payments , etc] can evolve into microservices if each feature is functionally independent
+}
+
+model ProjectTimeline {
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  startDate DateTime
+  endDate   DateTime
+  phases    Phase[] // 📅 List of phases for the project q1 timeline
+  // e.g. "MVP Phase from June 1 to June 21"
+  // User Feedback & Iteration from june 22 to july 10
+}
+
+model Phase {
+  id                String          @id @default(uuid())
+  projectTimelineId String
+  projectTimeline   ProjectTimeline @relation(fields: [projectTimelineId], references: [id])
+  title             String
+  start             DateTime
+  end               DateTime
+  status            WorkStatus      @default(PLANNED) // Track phase progress
+  tasks             Task[]
+
+  mvpDetailId String? // ✅ Optional because not all phases are MVP-specific
+  mvpDetail   MVPDetail? @relation(fields: [mvpDetailId], references: [id])
+}
+
+enum WorkStatus {
+  // Status should be updated automatically:
+  // - COMPLETED: all tasks done
+  // - IN_PROGRESS: any task in progress
+  // - PLANNED: no tasks started
+  // - ON_HOLD: blockers or pauses
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  ON_HOLD
+  CANCELLED
+}
+
+model Feature {
+  id    String @id @default(uuid())
+  title String
+
+  //replace why , what  with okr
+  how    String
+  status WorkStatus @default(PLANNED)
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+  tasks     Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Idea      Idea?    @relation(fields: [ideaId], references: [id])
+  ideaId    String?
+}
+
+enum Role {
+  DEVELOPER
+  MANAGER
+  USER
+}
+
+model Template {
+  id               String             @id @default(uuid())
+  type             String
+  description      String?
+  tags             String[]
+  TemplateResource TemplateResource[]
+  guide            String?
+  sampleProjects   Project[]
+  // todo - author of template
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model TemplateResource {
+  id         String    @id @default(uuid())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Template   Template? @relation(fields: [templateId], references: [id])
+  templateId String?
+  Resource   Resource? @relation(fields: [resourceId], references: [id])
+  resourceId String?
+}

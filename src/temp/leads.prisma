@@ -1,0 +1,11 @@
+// # WaitlistEntry, lead-related models
+
+model WaitlistEntry {
+  id         String   @id @default(uuid())
+  mvpDetailId String
+  mvpDetail   MVPDetail @relation(fields: [mvpDetailId], references: [id])
+
+  email      String
+  source     String?  // e.g. "Product Hunt", "Twitter"
+  joinedAt   DateTime @default(now())
+}

@@ -1,0 +1,52 @@
+"use client";
+
+import { AppCard } from "@/components/app/card";
+import { renderStatusMessage } from "@/components/app/status-message/renderStatusMessage";
+import { cn } from "@/lib/utils";
+import { get{{pascalCase name}}ById } from "@/features/{{camelCase name}}/actions/{{camelCase name}}Actions";
+
+{{#if isEditableView}}
+import { useEditToggle } from "@/lib/forms-inputs/utils";
+import { Button } from "@/lib/forms-inputs/button";
+import { Edit{{pascalCase name}}Form } from "./Edit{{pascalCase name}}Form";
+{{/if}}
+
+type {{pascalCase name}}DetailCardProps = {
+  className?: string;
+  {{camelCase name}}Result: Awaited<ReturnType<typeof get{{pascalCase name}}ById>>;
+};
+
+export function {{pascalCase name}}DetailCard({
+  {{camelCase name}}Result,
+  className,
+}: {{pascalCase name}}DetailCardProps) {
+  const cardTitle = "{{pascalCase name}}";
+
+  const statusMessage = renderStatusMessage({{camelCase name}}Result, cardTitle);
+  if (statusMessage || !{{camelCase name}}Result.ok) return statusMessage;
+
+  const { data } = {{camelCase name}}Result;
+
+  {{#if isEditableView}}
+  const { editing, startEditing, cancelEditing } = useEditToggle();
+
+  return (
+    <AppCard title={cardTitle} className={cn("space-y-2", className)}>
+      {editing ? (
+        <Edit{{pascalCase name}}Form {{camelCase name}}={data} onCancel={cancelEditing} />
+      ) : (
+        <>
+          <Button onClick={startEditing}>Edit</Button>
+          <Render{{pascalCase name}} {{camelCase name}}={data} />
+        </>
+      )}
+    </AppCard>
+  );
+  {{else}}
+  return (
+    <AppCard title={cardTitle} className={cn("space-y-2", className)}>
+      <Render{{pascalCase name}} {{camelCase name}}={data} />
+    </AppCard>
+  );
+  {{/if}}
+}

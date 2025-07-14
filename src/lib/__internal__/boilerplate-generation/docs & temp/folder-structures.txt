@@ -1,0 +1,67 @@
+📁 Directory Structure Suggestion
+
+project-root/
+├── plopfile.ts
+├── plop-templates/
+│   ├── component.tsx.hbs
+│   ├── api.ts.hbs
+│   ├── action.ts.hbs
+│   ├── zod.ts.hbs
+│   ├── hook.ts.hbs
+│   ├── util.ts.hbs
+│   ├── types.ts.hbs
+│   ├── store.ts.hbs
+│   ├── constants.ts.hbs
+│   ├── messages.ts.hbs
+│   └── page.tsx.hbs
+
+/*========================================
+
+if you want complete server component for rendering cut the render client component into the render server component file
+
+ex:
+export async function Render{{pascalCase name}}s({ className }: { className?: string }) {
+  const {{camelCase name}}sResult = await get{{pascalCase name}}s();
+
+  return (
+    <{{pascalCase name}}ListView {{camelCase name}}sResult={ {{camelCase name}}sResult} className={cn("", className)} />
+  );
+}
+
+function {{pascalCase name}}ListView({
+  {{camelCase name}}sResult,
+  className,
+}: {{pascalCase name}}ListViewProps) {
+  const cardTitle = "{{pascalCase name}} List";
+
+  const statusMessage = renderStatusMessage({{camelCase name}}sResult, cardTitle);
+  if (statusMessage || !{{camelCase name}}sResult.ok) return statusMessage;
+
+  const { data } = {{camelCase name}}sResult;
+
+...
+
+}
+
+/*========================================
+
+todo : need to structure here for 
+<Render{{pascalCase name}} {{camelCase name}}={data} />
+
+          <Button disabled={editing} onClick={startEditing}>Edit</Button>
+          <Render{{pascalCase name}} {{camelCase name}}={data} />
+        </>
+      )}
+    </AppCard>
+  );
+  {{else}}
+  return (
+    <AppCard title={cardTitle} className={cn("space-y-2", className)}>
+      <Render{{pascalCase name}} {{camelCase name}}={data} />
+    </AppCard>
+  );
+  {{/if}}
+
+/*========================================
+
+initially this code generation may look flat or as this or other projects grow and we get to use more and more pattern based code , will include that here and this generator will act as our sigle central libarary for common and most important coding standards and patterns

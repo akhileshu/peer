@@ -1,0 +1,23 @@
+
+import {
+  get{{pascalCase name}}s,
+  get{{pascalCase name}}ById,
+  create{{pascalCase name}},
+  update{{pascalCase name}},
+  delete{{pascalCase name}},
+} from "./{{camelCase name}}-crud-actions";
+
+{{#each customActions}}
+import { {{camelCase name}} } from "./{{kebabCase name}}";
+{{/each}}
+
+export const {{camelCase name}}Actions = {
+  getAll: get{{pascalCase name}}s,
+  getById: get{{pascalCase name}}ById,
+  create: create{{pascalCase name}},
+  update: update{{pascalCase name}},
+  delete: delete{{pascalCase name}},
+  {{#each customActions}}
+  {{camelCase name}}: {{camelCase name}},
+  {{/each}}
+};

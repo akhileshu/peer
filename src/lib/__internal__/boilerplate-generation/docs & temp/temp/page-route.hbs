@@ -1,0 +1,33 @@
+{{!-- note : this template is not being used --}}
+import React from 'react';
+{{#if components}}import { {{joinWithComma components}} } from '../../components';{{/if}}
+{{#if hooks}}import { {{hookImports hooks}} } from '../../hooks';{{/if}}
+{{#if store}}import { {{storeImport store}} } from '../../store';{{/if}}
+{{#if types}}import type { {{firstType types}} } from '../../types';{{/if}}
+
+interface {{properCase name}}PageProps {
+  // Add any page props here (e.g., from getServerSideProps)
+}
+
+export default function {{properCase name}}Page({}: {{properCase name}}PageProps) {
+  {{#if hooks}}// Hooks usage{{/if}}
+  {{#each hooks}}
+  const {{camelCase this}} = use{{properCase this}}();
+  {{/each}}
+  
+  {{#if store}}// Store usage{{/if}}
+  {{#if store}}
+  const { state, actions } = {{store}}();
+  {{/if}}
+
+  return (
+    <div className="{{dashCase name}}-page">
+      <h1>{{properCase name}} Page</h1>
+      
+      {{#if components}}
+      {/* Example component usage */}
+      <{{first components}} />
+      {{/if}}
+    </div>
+  );
+}

@@ -1,0 +1,62 @@
+import { {{firstZodSchema zodSchemas}} } from '../schemas';
+import { {{properCase firstType dbModel}} } from '../models';
+import type { 
+  {{properCase firstType types}}, 
+  {{properCase firstType types}}CreateInput,
+  {{properCase firstType types}}UpdateInput 
+} from '../types';
+
+export class {{properCase name}}Service {
+  static async create(input: {{properCase firstType types}}CreateInput): Promise<{{properCase firstType types}}> {
+    const validated = {{firstZodSchema zodSchemas}}.parse(input);
+    const item = new {{properCase firstType dbModel}}(validated);
+    await item.save();
+    return item.toJSON();
+  }
+
+  static async getById(id: string): Promise<{{properCase firstType types}} | null> {
+    return await {{properCase firstType dbModel}}.findById(id).lean();
+  }
+
+  static async update(
+    id: string, 
+    updates: {{properCase firstType types}}UpdateInput
+  ): Promise<{{properCase firstType types}} | null> {
+    const validated = {{firstZodSchema zodSchemas}}.partial().parse(updates);
+    return await {{properCase firstType dbModel}}.findByIdAndUpdate(
+      id, 
+      { $set: validated, $inc: { __v: 1 } },
+      { new: true }
+    ).lean();
+  }
+
+  static async delete(id: string): Promise<boolean> {
+    const result = await {{properCase firstType dbModel}}.deleteOne({ _id: id });
+    return result.deletedCount > 0;
+  }
+
+  static async search(params: {
+    query?: string;
+    status?: string;
+    page?: number;
+    limit?: number;
+  }): Promise<{{properCase firstType types}}[]> {
+    const { query, status, page = 1, limit = 10 } = params;
+    const skip = (page - 1) * limit;
+
+    const filter: any = {};
+    if (query) {
+      filter.$text = { $search: query };
+    }
+    if (status) {
+      filter.status = status;
+    }
+
+    return await {{properCase firstType dbModel}}
+      .find(filter)
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 })
+      .lean();
+  }
+}

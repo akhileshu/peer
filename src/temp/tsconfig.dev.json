@@ -1,0 +1,28 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    // "next-env.d.ts",
+    // "next.config.ts",
+    // "src/**/*.ts",
+    // "src/**/*.tsx",
+    // ".next/types/**/*.ts",
+    // "src/app/**/*.tsx",
+    // "src/services/**/*.tsx",
+    // "src/app/**/*.ts",
+    // "src/services/**/*.ts",
+    // "src/{app,services}/**/*.{ts,tsx}",
+    // ".next/types/**/*.ts",
+
+    "src/{app,services}/**/*.{ts,tsx}",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/temp",
+    ".next",
+    "cypress",
+    "**/*.spec.ts",
+    "dist",
+    "build"
+  ]
+}

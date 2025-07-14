@@ -1,0 +1,4353 @@
+{
+  "tables": {
+    "EarlyAdopter": {
+      "name": "EarlyAdopter",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "MVPDetailsId": {
+          "name": "MVPDetailsId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "contact": {
+          "name": "contact",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "EarlyAdopter_pkey": {
+          "name": "EarlyAdopter_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "EarlyAdopterToMVPDetails": {
+          "type": "FOREIGN KEY",
+          "name": "EarlyAdopterToMVPDetails",
+          "columnName": "MVPDetailsId",
+          "targetTableName": "MVPDetails",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "ValidationMetric": {
+      "name": "ValidationMetric",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "MVPDetailsId": {
+          "name": "MVPDetailsId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "goal": {
+          "name": "goal",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "metric": {
+          "name": "metric",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "target": {
+          "name": "target",
+          "type": "double precision",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "actual": {
+          "name": "actual",
+          "type": "double precision",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "status": {
+          "name": "status",
+          "type": "OutcomeStatus",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "ValidationMetric_pkey": {
+          "name": "ValidationMetric_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "MVPDetailsToValidationMetric": {
+          "type": "FOREIGN KEY",
+          "name": "MVPDetailsToValidationMetric",
+          "columnName": "MVPDetailsId",
+          "targetTableName": "MVPDetails",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "accounts": {
+      "name": "accounts",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "default": "cuid(1)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "provider_account_id": {
+          "name": "provider_account_id",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "token_type": {
+          "name": "token_type",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "scope": {
+          "name": "scope",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "session_state": {
+          "name": "session_state",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "accounts_pkey": {
+          "name": "accounts_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        },
+        "accounts_provider_provider_account_id_key": {
+          "name": "accounts_provider_provider_account_id_key",
+          "unique": true,
+          "columns": [
+            "provider",
+            "provider_account_id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "AccountToUser": {
+          "type": "FOREIGN KEY",
+          "name": "AccountToUser",
+          "columnName": "user_id",
+          "targetTableName": "users",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "sessions": {
+      "name": "sessions",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "default": "cuid(1)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "session_token": {
+          "name": "session_token",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": true,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "sessions_pkey": {
+          "name": "sessions_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        },
+        "sessions_session_token_key": {
+          "name": "sessions_session_token_key",
+          "unique": true,
+          "columns": [
+            "session_token"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "UNIQUE_session_token": {
+          "type": "UNIQUE",
+          "name": "UNIQUE_session_token",
+          "columnName": "session_token"
+        },
+        "SessionToUser": {
+          "type": "FOREIGN KEY",
+          "name": "SessionToUser",
+          "columnName": "user_id",
+          "targetTableName": "users",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "verification_tokens": {
+      "name": "verification_tokens",
+      "columns": {
+        "identifier": {
+          "name": "identifier",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "expires": {
+          "name": "expires",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "verification_tokens_identifier_token_key": {
+          "name": "verification_tokens_identifier_token_key",
+          "unique": true,
+          "columns": [
+            "identifier",
+            "token"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {}
+    },
+    "users": {
+      "name": "users",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "default": "cuid(1)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": true,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "email_verified": {
+          "name": "email_verified",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "isProfileSetupDone": {
+          "name": "isProfileSetupDone",
+          "type": "boolean",
+          "default": false,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "role": {
+          "name": "role",
+          "type": "Role",
+          "default": "DEVELOPER",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "users_pkey": {
+          "name": "users_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        },
+        "users_email_key": {
+          "name": "users_email_key",
+          "unique": true,
+          "columns": [
+            "email"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "UNIQUE_email": {
+          "type": "UNIQUE",
+          "name": "UNIQUE_email",
+          "columnName": "email"
+        }
+      }
+    },
+    "LaunchMilestone": {
+      "name": "LaunchMilestone",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "MVPDetailsId": {
+          "name": "MVPDetailsId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "dueDate": {
+          "name": "dueDate",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "status": {
+          "name": "status",
+          "type": "MilestoneStatus",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "LaunchMilestone_pkey": {
+          "name": "LaunchMilestone_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "LaunchMilestoneToMVPDetails": {
+          "type": "FOREIGN KEY",
+          "name": "LaunchMilestoneToMVPDetails",
+          "columnName": "MVPDetailsId",
+          "targetTableName": "MVPDetails",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "TimeToMarket": {
+      "name": "TimeToMarket",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "MVPDetailsId": {
+          "name": "MVPDetailsId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": true,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "estimatedDays": {
+          "name": "estimatedDays",
+          "type": "integer",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "actualDays": {
+          "name": "actualDays",
+          "type": "integer",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "blockers": {
+          "name": "blockers",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "TimeToMarket_pkey": {
+          "name": "TimeToMarket_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        },
+        "TimeToMarket_MVPDetailsId_key": {
+          "name": "TimeToMarket_MVPDetailsId_key",
+          "unique": true,
+          "columns": [
+            "MVPDetailsId"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "UNIQUE_MVPDetailsId": {
+          "type": "UNIQUE",
+          "name": "UNIQUE_MVPDetailsId",
+          "columnName": "MVPDetailsId"
+        },
+        "MVPDetailsToTimeToMarket": {
+          "type": "FOREIGN KEY",
+          "name": "MVPDetailsToTimeToMarket",
+          "columnName": "MVPDetailsId",
+          "targetTableName": "MVPDetails",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "Positioning": {
+      "name": "Positioning",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "MVPDetailsId": {
+          "name": "MVPDetailsId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "valueProp": {
+          "name": "valueProp",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "differentiation": {
+          "name": "differentiation",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "slogan": {
+          "name": "slogan",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "tagline": {
+          "name": "tagline",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Positioning_pkey": {
+          "name": "Positioning_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "MVPDetailsToPositioning": {
+          "type": "FOREIGN KEY",
+          "name": "MVPDetailsToPositioning",
+          "columnName": "MVPDetailsId",
+          "targetTableName": "MVPDetails",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "GoToMarket": {
+      "name": "GoToMarket",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "MVPDetailsId": {
+          "name": "MVPDetailsId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "strategy": {
+          "name": "strategy",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "budget": {
+          "name": "budget",
+          "type": "double precision",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "channels": {
+          "name": "channels",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "GoToMarket_pkey": {
+          "name": "GoToMarket_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "GoToMarketToMVPDetails": {
+          "type": "FOREIGN KEY",
+          "name": "GoToMarketToMVPDetails",
+          "columnName": "MVPDetailsId",
+          "targetTableName": "MVPDetails",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "TargetMarket": {
+      "name": "TargetMarket",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "projectId": {
+          "name": "projectId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "segment": {
+          "name": "segment",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "painPoints": {
+          "name": "painPoints",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "size": {
+          "name": "size",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "TargetMarket_pkey": {
+          "name": "TargetMarket_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "ProjectToTargetMarket": {
+          "type": "FOREIGN KEY",
+          "name": "ProjectToTargetMarket",
+          "columnName": "projectId",
+          "targetTableName": "Project",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "WaitlistEntry": {
+      "name": "WaitlistEntry",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "MVPDetailsId": {
+          "name": "MVPDetailsId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "joinedAt": {
+          "name": "joinedAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "WaitlistEntry_pkey": {
+          "name": "WaitlistEntry_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "MVPDetailsToWaitlistEntry": {
+          "type": "FOREIGN KEY",
+          "name": "MVPDetailsToWaitlistEntry",
+          "columnName": "MVPDetailsId",
+          "targetTableName": "MVPDetails",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "Idea": {
+      "name": "Idea",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "authorId": {
+          "name": "authorId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "status": {
+          "name": "status",
+          "type": "IdeaStatus",
+          "default": "SUGGESTED",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "tags": {
+          "name": "tags",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "votes": {
+          "name": "votes",
+          "type": "integer",
+          "default": 0,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "impactArea": {
+          "name": "impactArea",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "impactScore": {
+          "name": "impactScore",
+          "type": "double precision",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "scope": {
+          "name": "scope",
+          "type": "IdeaScope",
+          "default": "TBD",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "userJourneyId": {
+          "name": "userJourneyId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Idea_pkey": {
+          "name": "Idea_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "IdeaToUser": {
+          "type": "FOREIGN KEY",
+          "name": "IdeaToUser",
+          "columnName": "authorId",
+          "targetTableName": "users",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "IdeaToUserJourney": {
+          "type": "FOREIGN KEY",
+          "name": "IdeaToUserJourney",
+          "columnName": "userJourneyId",
+          "targetTableName": "UserJourney",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "Task": {
+      "name": "Task",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "tags": {
+          "name": "tags",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "status": {
+          "name": "status",
+          "type": "taskStatus",
+          "default": "OPEN",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "featureId": {
+          "name": "featureId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "assigneeId": {
+          "name": "assigneeId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "reporterId": {
+          "name": "reporterId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "ideaId": {
+          "name": "ideaId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Task_pkey": {
+          "name": "Task_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "FeatureToTask": {
+          "type": "FOREIGN KEY",
+          "name": "FeatureToTask",
+          "columnName": "featureId",
+          "targetTableName": "Feature",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "AssignedTasks": {
+          "type": "FOREIGN KEY",
+          "name": "AssignedTasks",
+          "columnName": "assigneeId",
+          "targetTableName": "users",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "ReportedTasks": {
+          "type": "FOREIGN KEY",
+          "name": "ReportedTasks",
+          "columnName": "reporterId",
+          "targetTableName": "users",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "IdeaToTask": {
+          "type": "FOREIGN KEY",
+          "name": "IdeaToTask",
+          "columnName": "ideaId",
+          "targetTableName": "Idea",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "TaskRelation": {
+      "name": "TaskRelation",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "fromTaskId": {
+          "name": "fromTaskId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "toTaskId": {
+          "name": "toTaskId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "relationType": {
+          "name": "relationType",
+          "type": "TaskRelationType",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "TaskRelation_pkey": {
+          "name": "TaskRelation_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "FromTask": {
+          "type": "FOREIGN KEY",
+          "name": "FromTask",
+          "columnName": "fromTaskId",
+          "targetTableName": "Task",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "ToTask": {
+          "type": "FOREIGN KEY",
+          "name": "ToTask",
+          "columnName": "toTaskId",
+          "targetTableName": "Task",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "engineeringDetails": {
+      "name": "engineeringDetails",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "how": {
+          "name": "how",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "challenges": {
+          "name": "challenges",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "decisionCriteria": {
+          "name": "decisionCriteria",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "buildVsBuy": {
+          "name": "buildVsBuy",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "improvementPlan": {
+          "name": "improvementPlan",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "shippingImperfect": {
+          "name": "shippingImperfect",
+          "type": "boolean",
+          "default": false,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "pivotReason": {
+          "name": "pivotReason",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "riskId": {
+          "name": "riskId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": true,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "reusableAssetNote": {
+          "name": "reusableAssetNote",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "resourcesUsed": {
+          "name": "resourcesUsed",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "atomicTasks": {
+          "name": "atomicTasks",
+          "type": "jsonb",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "effortArea": {
+          "name": "effortArea",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "effortScore": {
+          "name": "effortScore",
+          "type": "double precision",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "taskId": {
+          "name": "taskId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": true,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "engineeringDetails_pkey": {
+          "name": "engineeringDetails_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        },
+        "engineeringDetails_riskId_key": {
+          "name": "engineeringDetails_riskId_key",
+          "unique": true,
+          "columns": [
+            "riskId"
+          ],
+          "type": ""
+        },
+        "engineeringDetails_taskId_key": {
+          "name": "engineeringDetails_taskId_key",
+          "unique": true,
+          "columns": [
+            "taskId"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "UNIQUE_riskId": {
+          "type": "UNIQUE",
+          "name": "UNIQUE_riskId",
+          "columnName": "riskId"
+        },
+        "UNIQUE_taskId": {
+          "type": "UNIQUE",
+          "name": "UNIQUE_taskId",
+          "columnName": "taskId"
+        },
+        "RiskToTaskEngineeringDetail": {
+          "type": "FOREIGN KEY",
+          "name": "RiskToTaskEngineeringDetail",
+          "columnName": "riskId",
+          "targetTableName": "Risk",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "TaskToTaskEngineeringDetail": {
+          "type": "FOREIGN KEY",
+          "name": "TaskToTaskEngineeringDetail",
+          "columnName": "taskId",
+          "targetTableName": "Task",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "Risk": {
+      "name": "Risk",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "level": {
+          "name": "level",
+          "type": "RiskLevel",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "mitigationPlan": {
+          "name": "mitigationPlan",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Risk_pkey": {
+          "name": "Risk_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        }
+      }
+    },
+    "productDetails": {
+      "name": "productDetails",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "impactArea": {
+          "name": "impactArea",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "impactScore": {
+          "name": "impactScore",
+          "type": "double precision",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "priorityScore": {
+          "name": "priorityScore",
+          "type": "double precision",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "okrId": {
+          "name": "okrId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "startDate": {
+          "name": "startDate",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "endDate": {
+          "name": "endDate",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "taskId": {
+          "name": "taskId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": true,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "productDetails_pkey": {
+          "name": "productDetails_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        },
+        "productDetails_taskId_key": {
+          "name": "productDetails_taskId_key",
+          "unique": true,
+          "columns": [
+            "taskId"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "UNIQUE_taskId": {
+          "type": "UNIQUE",
+          "name": "UNIQUE_taskId",
+          "columnName": "taskId"
+        },
+        "OKRToTaskProductDetail": {
+          "type": "FOREIGN KEY",
+          "name": "OKRToTaskProductDetail",
+          "columnName": "okrId",
+          "targetTableName": "OKR",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "TaskToTaskProductDetail": {
+          "type": "FOREIGN KEY",
+          "name": "TaskToTaskProductDetail",
+          "columnName": "taskId",
+          "targetTableName": "Task",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "TaskHistory": {
+      "name": "TaskHistory",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "changedField": {
+          "name": "changedField",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "oldValue": {
+          "name": "oldValue",
+          "type": "jsonb",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "newValue": {
+          "name": "newValue",
+          "type": "jsonb",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "changedBy": {
+          "name": "changedBy",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "changedAt": {
+          "name": "changedAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "TaskHistory_pkey": {
+          "name": "TaskHistory_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        }
+      }
+    },
+    "OKR": {
+      "name": "OKR",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "outcomeAligned": {
+          "name": "outcomeAligned",
+          "type": "boolean",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "outcomeNotes": {
+          "name": "outcomeNotes",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "OKR_pkey": {
+          "name": "OKR_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        }
+      }
+    },
+    "KeyResult": {
+      "name": "KeyResult",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "okrId": {
+          "name": "okrId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "area": {
+          "name": "area",
+          "type": "WorkArea",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "result": {
+          "name": "result",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "status": {
+          "name": "status",
+          "type": "OutcomeStatus",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "KeyResult_pkey": {
+          "name": "KeyResult_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "KeyResultToOKR": {
+          "type": "FOREIGN KEY",
+          "name": "KeyResultToOKR",
+          "columnName": "okrId",
+          "targetTableName": "OKR",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "uxDetails": {
+      "name": "uxDetails",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "customerFeedbackLink": {
+          "name": "customerFeedbackLink",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "analyticsData": {
+          "name": "analyticsData",
+          "type": "jsonb",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "analyticsLink": {
+          "name": "analyticsLink",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "analyticsNotes": {
+          "name": "analyticsNotes",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "userJourneyId": {
+          "name": "userJourneyId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "userPersonaId": {
+          "name": "userPersonaId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "taskId": {
+          "name": "taskId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": true,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "uxDetails_pkey": {
+          "name": "uxDetails_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        },
+        "uxDetails_taskId_key": {
+          "name": "uxDetails_taskId_key",
+          "unique": true,
+          "columns": [
+            "taskId"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "UNIQUE_taskId": {
+          "type": "UNIQUE",
+          "name": "UNIQUE_taskId",
+          "columnName": "taskId"
+        },
+        "TaskUxDetailToUserJourney": {
+          "type": "FOREIGN KEY",
+          "name": "TaskUxDetailToUserJourney",
+          "columnName": "userJourneyId",
+          "targetTableName": "UserJourney",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "TaskUxDetailToUserPersona": {
+          "type": "FOREIGN KEY",
+          "name": "TaskUxDetailToUserPersona",
+          "columnName": "userPersonaId",
+          "targetTableName": "UserPersona",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "TaskToTaskUxDetail": {
+          "type": "FOREIGN KEY",
+          "name": "TaskToTaskUxDetail",
+          "columnName": "taskId",
+          "targetTableName": "Task",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "UserPersona": {
+      "name": "UserPersona",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "goals": {
+          "name": "goals",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "painPoints": {
+          "name": "painPoints",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "UserPersona_pkey": {
+          "name": "UserPersona_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        }
+      }
+    },
+    "UserJourney": {
+      "name": "UserJourney",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "persona": {
+          "name": "persona",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "diagramLink": {
+          "name": "diagramLink",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "UserJourney_pkey": {
+          "name": "UserJourney_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        }
+      }
+    },
+    "WorkLog": {
+      "name": "WorkLog",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "taskId": {
+          "name": "taskId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "startTime": {
+          "name": "startTime",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "endTime": {
+          "name": "endTime",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "duration": {
+          "name": "duration",
+          "type": "integer",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "comment": {
+          "name": "comment",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "WorkLog_pkey": {
+          "name": "WorkLog_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "TaskToWorkLog": {
+          "type": "FOREIGN KEY",
+          "name": "TaskToWorkLog",
+          "columnName": "taskId",
+          "targetTableName": "Task",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "UserToWorkLog": {
+          "type": "FOREIGN KEY",
+          "name": "UserToWorkLog",
+          "columnName": "userId",
+          "targetTableName": "users",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "Comment": {
+      "name": "Comment",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "authorId": {
+          "name": "authorId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "projectId": {
+          "name": "projectId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Comment_pkey": {
+          "name": "Comment_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "CommentToUser": {
+          "type": "FOREIGN KEY",
+          "name": "CommentToUser",
+          "columnName": "authorId",
+          "targetTableName": "users",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "CommentToProject": {
+          "type": "FOREIGN KEY",
+          "name": "CommentToProject",
+          "columnName": "projectId",
+          "targetTableName": "Project",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "Resource": {
+      "name": "Resource",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "type": {
+          "name": "type",
+          "type": "ResourceType",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Resource_pkey": {
+          "name": "Resource_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        }
+      }
+    },
+    "Calendar": {
+      "name": "Calendar",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Calendar_pkey": {
+          "name": "Calendar_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        }
+      }
+    },
+    "Timebox": {
+      "name": "Timebox",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "start": {
+          "name": "start",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "end": {
+          "name": "end",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "calendarId": {
+          "name": "calendarId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "productDetailsId": {
+          "name": "productDetailsId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Timebox_pkey": {
+          "name": "Timebox_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "CalendarToTimebox": {
+          "type": "FOREIGN KEY",
+          "name": "CalendarToTimebox",
+          "columnName": "calendarId",
+          "targetTableName": "Calendar",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "TaskProductDetailToTimebox": {
+          "type": "FOREIGN KEY",
+          "name": "TaskProductDetailToTimebox",
+          "columnName": "productDetailsId",
+          "targetTableName": "productDetails",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "TodoNote": {
+      "name": "TodoNote",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "type": {
+          "name": "type",
+          "type": "TodoType",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "linkedTo": {
+          "name": "linkedTo",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "linkId": {
+          "name": "linkId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdBy": {
+          "name": "createdBy",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "TodoNote_pkey": {
+          "name": "TodoNote_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        }
+      }
+    },
+    "Project": {
+      "name": "Project",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "gitRepo": {
+          "name": "gitRepo",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "documentationLink": {
+          "name": "documentationLink",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "hostedLink": {
+          "name": "hostedLink",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "erdLink": {
+          "name": "erdLink",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "templateId": {
+          "name": "templateId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Project_pkey": {
+          "name": "Project_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "ProjectToTemplate": {
+          "type": "FOREIGN KEY",
+          "name": "ProjectToTemplate",
+          "columnName": "templateId",
+          "targetTableName": "Template",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "Milestone": {
+      "name": "Milestone",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "startDate": {
+          "name": "startDate",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "endDate": {
+          "name": "endDate",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "status": {
+          "name": "status",
+          "type": "MilestoneStatus",
+          "default": "OPEN",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "projectId": {
+          "name": "projectId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Milestone_pkey": {
+          "name": "Milestone_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "MilestoneToProject": {
+          "type": "FOREIGN KEY",
+          "name": "MilestoneToProject",
+          "columnName": "projectId",
+          "targetTableName": "Project",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "Feature": {
+      "name": "Feature",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "what": {
+          "name": "what",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "why": {
+          "name": "why",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "how": {
+          "name": "how",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "status": {
+          "name": "status",
+          "type": "FeatureStatus",
+          "default": "OPEN",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "milestoneId": {
+          "name": "milestoneId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "projectId": {
+          "name": "projectId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "ideaId": {
+          "name": "ideaId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Feature_pkey": {
+          "name": "Feature_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "FeatureToMilestone": {
+          "type": "FOREIGN KEY",
+          "name": "FeatureToMilestone",
+          "columnName": "milestoneId",
+          "targetTableName": "Milestone",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "FeatureToProject": {
+          "type": "FOREIGN KEY",
+          "name": "FeatureToProject",
+          "columnName": "projectId",
+          "targetTableName": "Project",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "FeatureToIdea": {
+          "type": "FOREIGN KEY",
+          "name": "FeatureToIdea",
+          "columnName": "ideaId",
+          "targetTableName": "Idea",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "Template": {
+      "name": "Template",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "tags": {
+          "name": "tags",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "guide": {
+          "name": "guide",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "Template_pkey": {
+          "name": "Template_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        }
+      }
+    },
+    "TemplateResource": {
+      "name": "TemplateResource",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "templateId": {
+          "name": "templateId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "resourceId": {
+          "name": "resourceId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "TemplateResource_pkey": {
+          "name": "TemplateResource_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "TemplateToTemplateResource": {
+          "type": "FOREIGN KEY",
+          "name": "TemplateToTemplateResource",
+          "columnName": "templateId",
+          "targetTableName": "Template",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        },
+        "ResourceToTemplateResource": {
+          "type": "FOREIGN KEY",
+          "name": "ResourceToTemplateResource",
+          "columnName": "resourceId",
+          "targetTableName": "Resource",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    },
+    "MVPDetails": {
+      "name": "MVPDetails",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "default": "uuid(4)",
+          "notNull": true,
+          "unique": true,
+          "primary": true,
+          "comment": null,
+          "check": null
+        },
+        "projectId": {
+          "name": "projectId",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "unique": true,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "stage": {
+          "name": "stage",
+          "type": "MvpStage",
+          "default": "IDEA_VALIDATION",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "startedAt": {
+          "name": "startedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp(3)",
+          "default": "now()",
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp(3)",
+          "default": null,
+          "notNull": true,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        },
+        "timeToMarketId": {
+          "name": "timeToMarketId",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "unique": false,
+          "primary": false,
+          "comment": null,
+          "check": null
+        }
+      },
+      "comment": null,
+      "indexes": {
+        "MVPDetails_pkey": {
+          "name": "MVPDetails_pkey",
+          "unique": true,
+          "columns": [
+            "id"
+          ],
+          "type": ""
+        },
+        "MVPDetails_projectId_key": {
+          "name": "MVPDetails_projectId_key",
+          "unique": true,
+          "columns": [
+            "projectId"
+          ],
+          "type": ""
+        }
+      },
+      "constraints": {
+        "PRIMARY_id": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_id",
+          "columnName": "id"
+        },
+        "UNIQUE_projectId": {
+          "type": "UNIQUE",
+          "name": "UNIQUE_projectId",
+          "columnName": "projectId"
+        },
+        "MVPDetailsToProject": {
+          "type": "FOREIGN KEY",
+          "name": "MVPDetailsToProject",
+          "columnName": "projectId",
+          "targetTableName": "Project",
+          "targetColumnName": "id",
+          "updateConstraint": "NO_ACTION",
+          "deleteConstraint": "NO_ACTION"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "EarlyAdopterToMVPDetails": {
+      "name": "EarlyAdopterToMVPDetails",
+      "primaryTableName": "MVPDetails",
+      "primaryColumnName": "id",
+      "foreignTableName": "EarlyAdopter",
+      "foreignColumnName": "MVPDetailsId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "MVPDetailsToValidationMetric": {
+      "name": "MVPDetailsToValidationMetric",
+      "primaryTableName": "MVPDetails",
+      "primaryColumnName": "id",
+      "foreignTableName": "ValidationMetric",
+      "foreignColumnName": "MVPDetailsId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "AccountToUser": {
+      "name": "AccountToUser",
+      "primaryTableName": "users",
+      "primaryColumnName": "id",
+      "foreignTableName": "accounts",
+      "foreignColumnName": "user_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "SessionToUser": {
+      "name": "SessionToUser",
+      "primaryTableName": "users",
+      "primaryColumnName": "id",
+      "foreignTableName": "sessions",
+      "foreignColumnName": "user_id",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "AssignedTasks": {
+      "name": "AssignedTasks",
+      "primaryTableName": "users",
+      "primaryColumnName": "id",
+      "foreignTableName": "Task",
+      "foreignColumnName": "assigneeId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "ReportedTasks": {
+      "name": "ReportedTasks",
+      "primaryTableName": "users",
+      "primaryColumnName": "id",
+      "foreignTableName": "Task",
+      "foreignColumnName": "reporterId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "UserToWorkLog": {
+      "name": "UserToWorkLog",
+      "primaryTableName": "users",
+      "primaryColumnName": "id",
+      "foreignTableName": "WorkLog",
+      "foreignColumnName": "userId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "CommentToUser": {
+      "name": "CommentToUser",
+      "primaryTableName": "users",
+      "primaryColumnName": "id",
+      "foreignTableName": "Comment",
+      "foreignColumnName": "authorId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "IdeaToUser": {
+      "name": "IdeaToUser",
+      "primaryTableName": "users",
+      "primaryColumnName": "id",
+      "foreignTableName": "Idea",
+      "foreignColumnName": "authorId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "LaunchMilestoneToMVPDetails": {
+      "name": "LaunchMilestoneToMVPDetails",
+      "primaryTableName": "MVPDetails",
+      "primaryColumnName": "id",
+      "foreignTableName": "LaunchMilestone",
+      "foreignColumnName": "MVPDetailsId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "MVPDetailsToTimeToMarket": {
+      "name": "MVPDetailsToTimeToMarket",
+      "primaryTableName": "MVPDetails",
+      "primaryColumnName": "id",
+      "foreignTableName": "TimeToMarket",
+      "foreignColumnName": "MVPDetailsId",
+      "cardinality": "ONE_TO_ONE",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "MVPDetailsToPositioning": {
+      "name": "MVPDetailsToPositioning",
+      "primaryTableName": "MVPDetails",
+      "primaryColumnName": "id",
+      "foreignTableName": "Positioning",
+      "foreignColumnName": "MVPDetailsId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "GoToMarketToMVPDetails": {
+      "name": "GoToMarketToMVPDetails",
+      "primaryTableName": "MVPDetails",
+      "primaryColumnName": "id",
+      "foreignTableName": "GoToMarket",
+      "foreignColumnName": "MVPDetailsId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "ProjectToTargetMarket": {
+      "name": "ProjectToTargetMarket",
+      "primaryTableName": "Project",
+      "primaryColumnName": "id",
+      "foreignTableName": "TargetMarket",
+      "foreignColumnName": "projectId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "MVPDetailsToWaitlistEntry": {
+      "name": "MVPDetailsToWaitlistEntry",
+      "primaryTableName": "MVPDetails",
+      "primaryColumnName": "id",
+      "foreignTableName": "WaitlistEntry",
+      "foreignColumnName": "MVPDetailsId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "FeatureToIdea": {
+      "name": "FeatureToIdea",
+      "primaryTableName": "Idea",
+      "primaryColumnName": "id",
+      "foreignTableName": "Feature",
+      "foreignColumnName": "ideaId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "IdeaToTask": {
+      "name": "IdeaToTask",
+      "primaryTableName": "Idea",
+      "primaryColumnName": "id",
+      "foreignTableName": "Task",
+      "foreignColumnName": "ideaId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "IdeaToUserJourney": {
+      "name": "IdeaToUserJourney",
+      "primaryTableName": "UserJourney",
+      "primaryColumnName": "id",
+      "foreignTableName": "Idea",
+      "foreignColumnName": "userJourneyId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "FeatureToTask": {
+      "name": "FeatureToTask",
+      "primaryTableName": "Feature",
+      "primaryColumnName": "id",
+      "foreignTableName": "Task",
+      "foreignColumnName": "featureId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "TaskToWorkLog": {
+      "name": "TaskToWorkLog",
+      "primaryTableName": "Task",
+      "primaryColumnName": "id",
+      "foreignTableName": "WorkLog",
+      "foreignColumnName": "taskId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "TaskToTaskEngineeringDetail": {
+      "name": "TaskToTaskEngineeringDetail",
+      "primaryTableName": "Task",
+      "primaryColumnName": "id",
+      "foreignTableName": "engineeringDetails",
+      "foreignColumnName": "taskId",
+      "cardinality": "ONE_TO_ONE",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "TaskToTaskProductDetail": {
+      "name": "TaskToTaskProductDetail",
+      "primaryTableName": "Task",
+      "primaryColumnName": "id",
+      "foreignTableName": "productDetails",
+      "foreignColumnName": "taskId",
+      "cardinality": "ONE_TO_ONE",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "TaskToTaskUxDetail": {
+      "name": "TaskToTaskUxDetail",
+      "primaryTableName": "Task",
+      "primaryColumnName": "id",
+      "foreignTableName": "uxDetails",
+      "foreignColumnName": "taskId",
+      "cardinality": "ONE_TO_ONE",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "FromTask": {
+      "name": "FromTask",
+      "primaryTableName": "Task",
+      "primaryColumnName": "id",
+      "foreignTableName": "TaskRelation",
+      "foreignColumnName": "fromTaskId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "ToTask": {
+      "name": "ToTask",
+      "primaryTableName": "Task",
+      "primaryColumnName": "id",
+      "foreignTableName": "TaskRelation",
+      "foreignColumnName": "toTaskId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "RiskToTaskEngineeringDetail": {
+      "name": "RiskToTaskEngineeringDetail",
+      "primaryTableName": "Risk",
+      "primaryColumnName": "id",
+      "foreignTableName": "engineeringDetails",
+      "foreignColumnName": "riskId",
+      "cardinality": "ONE_TO_ONE",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "OKRToTaskProductDetail": {
+      "name": "OKRToTaskProductDetail",
+      "primaryTableName": "OKR",
+      "primaryColumnName": "id",
+      "foreignTableName": "productDetails",
+      "foreignColumnName": "okrId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "TaskProductDetailToTimebox": {
+      "name": "TaskProductDetailToTimebox",
+      "primaryTableName": "productDetails",
+      "primaryColumnName": "id",
+      "foreignTableName": "Timebox",
+      "foreignColumnName": "productDetailsId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "KeyResultToOKR": {
+      "name": "KeyResultToOKR",
+      "primaryTableName": "OKR",
+      "primaryColumnName": "id",
+      "foreignTableName": "KeyResult",
+      "foreignColumnName": "okrId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "TaskUxDetailToUserJourney": {
+      "name": "TaskUxDetailToUserJourney",
+      "primaryTableName": "UserJourney",
+      "primaryColumnName": "id",
+      "foreignTableName": "uxDetails",
+      "foreignColumnName": "userJourneyId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "TaskUxDetailToUserPersona": {
+      "name": "TaskUxDetailToUserPersona",
+      "primaryTableName": "UserPersona",
+      "primaryColumnName": "id",
+      "foreignTableName": "uxDetails",
+      "foreignColumnName": "userPersonaId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "CommentToProject": {
+      "name": "CommentToProject",
+      "primaryTableName": "Project",
+      "primaryColumnName": "id",
+      "foreignTableName": "Comment",
+      "foreignColumnName": "projectId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "ResourceToTemplateResource": {
+      "name": "ResourceToTemplateResource",
+      "primaryTableName": "Resource",
+      "primaryColumnName": "id",
+      "foreignTableName": "TemplateResource",
+      "foreignColumnName": "resourceId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "CalendarToTimebox": {
+      "name": "CalendarToTimebox",
+      "primaryTableName": "Calendar",
+      "primaryColumnName": "id",
+      "foreignTableName": "Timebox",
+      "foreignColumnName": "calendarId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "MilestoneToProject": {
+      "name": "MilestoneToProject",
+      "primaryTableName": "Project",
+      "primaryColumnName": "id",
+      "foreignTableName": "Milestone",
+      "foreignColumnName": "projectId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "FeatureToProject": {
+      "name": "FeatureToProject",
+      "primaryTableName": "Project",
+      "primaryColumnName": "id",
+      "foreignTableName": "Feature",
+      "foreignColumnName": "projectId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "ProjectToTemplate": {
+      "name": "ProjectToTemplate",
+      "primaryTableName": "Template",
+      "primaryColumnName": "id",
+      "foreignTableName": "Project",
+      "foreignColumnName": "templateId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "MVPDetailsToProject": {
+      "name": "MVPDetailsToProject",
+      "primaryTableName": "Project",
+      "primaryColumnName": "id",
+      "foreignTableName": "MVPDetails",
+      "foreignColumnName": "projectId",
+      "cardinality": "ONE_TO_ONE",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "FeatureToMilestone": {
+      "name": "FeatureToMilestone",
+      "primaryTableName": "Milestone",
+      "primaryColumnName": "id",
+      "foreignTableName": "Feature",
+      "foreignColumnName": "milestoneId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    },
+    "TemplateToTemplateResource": {
+      "name": "TemplateToTemplateResource",
+      "primaryTableName": "Template",
+      "primaryColumnName": "id",
+      "foreignTableName": "TemplateResource",
+      "foreignColumnName": "templateId",
+      "cardinality": "ONE_TO_MANY",
+      "updateConstraint": "NO_ACTION",
+      "deleteConstraint": "NO_ACTION"
+    }
+  },
+  "tableGroups": {}
+}

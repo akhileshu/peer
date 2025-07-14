@@ -1,0 +1,118 @@
+enum MvpStage {
+  IDEA_VALIDATION
+  MVP_DEFINITION
+  BUILDING
+  TESTING
+  READY_TO_LAUNCH
+  LAUNCHED
+  POST_LAUNCH
+}
+
+model MVPDetail {
+  id        String  @id @default(uuid())
+  projectId String  @unique
+  project   Project @relation(fields: [projectId], references: [id])
+
+  startedAt DateTime?
+  notes     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  goToMarkets GoToMarket[] // 💬 How we plan to promote the product 
+  // e.g. "Product Hunt launch", "Email outreach"
+
+  timeToMarket TimeToMarket? // ⏱️ Time taken from idea to live product
+  // e.g. Estimated: 30 days, Actual: 45 days
+
+  validationMetrics ValidationMetric[] // 📊 How we measure success before/after launch
+  // e.g. Goal: 100 signups in 30 days
+
+  positionings Positioning[] // 🧠 What makes our product stand out
+  // e.g. Value: "Fastest way to build MVPs"
+
+  earlyAdopters EarlyAdopter[] // 🧑‍💼 First users who test and give feedback
+  // e.g. "john@example.com" from Twitter
+
+  stage        MvpStage @default(IDEA_VALIDATION)
+  launchPhases Phase[]
+  //🧠 Example Mapping
+  // MvpStage = BUILDING
+  // ↳ Phases: Design UI, Set up backend, Integrate APIs
+
+  // MvpStage = TESTING
+  // ↳ Phases: QA, Bug fixing, Beta feedback loop
+
+  // | Term     | Where Used              | Meaning                                                        | Keep? |
+  // | -------- | ----------------------- | -------------------------------------------------------------- | ----- |
+  // | `stage`  | In `MVPDetail`, `Phase` | High-level **phase of progress** like “BUILDING”, “TESTING”    | ✅ Yes |
+  // | `status` | In `Phase`              | Real-time **execution state** like “IN\_PROGRESS”, “COMPLETED” | ✅ Yes |
+
+  waitlistEntries WaitlistEntry[] // 📥 pre-launch signup list , Emails collected before launch
+  // e.g. "demo@abc.com" via Product Hunt
+
+  timeToMarketId String?
+}
+
+// launchPhases = [
+//   {
+//     "title": "Market Research",
+//     "start": "2025-06-01T00:00:00Z",
+//     "end": "2025-06-03T23:59:59Z",
+//     "status": "PLANNED"
+//   },
+//   {
+//     "title": "User Interviews",
+//     "start": "2025-06-04T00:00:00Z",
+//     "end": "2025-06-06T23:59:59Z",
+//     "status": "PLANNED"
+//   },
+//   {
+//     "title": "Problem Validation",
+//     "start": "2025-06-07T00:00:00Z",
+//     "end": "2025-06-09T23:59:59Z",
+//     "status": "PLANNED"
+//   },
+//   {
+//     "title": "Solution Sketching",
+//     "start": "2025-06-10T00:00:00Z",
+//     "end": "2025-06-12T23:59:59Z",
+//     "status": "PLANNED"
+//   },
+//   {
+//     "title": "Prototype Testing",
+//     "start": "2025-06-13T00:00:00Z",
+//     "end": "2025-06-15T23:59:59Z",
+//     "status": "PLANNED"
+//   },
+//   {
+//     "title": "MVP Design",
+//     "start": "2025-06-16T00:00:00Z",
+//     "end": "2025-06-20T23:59:59Z",
+//     "status": "PLANNED"
+//   },
+//   {
+//     "title": "MVP Development",
+//     "start": "2025-06-21T00:00:00Z",
+//     "end": "2025-07-10T23:59:59Z",
+//     "status": "PLANNED"
+//   },
+//   {
+//     "title": "Internal QA & Testing",
+//     "start": "2025-07-11T00:00:00Z",
+//     "end": "2025-07-13T23:59:59Z",
+//     "status": "PLANNED"
+//   },
+//   {
+//     "title": "MVP Launch",
+//     "start": "2025-07-14T00:00:00Z",
+//     "end": "2025-07-14T23:59:59Z",
+//     "status": "PLANNED"
+//   },
+//   {
+//     "title": "Post-launch Feedback",
+//     "start": "2025-07-15T00:00:00Z",
+//     "end": "2025-07-20T23:59:59Z",
+//     "status": "PLANNED"
+//   }
+// ]

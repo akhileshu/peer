@@ -1,0 +1,11 @@
+describe("{{properCase featureName}} - {{testName}} Page", () => {
+  beforeEach(() => {
+    cy.visit("{{pageUrl}}");
+  });
+
+  it("should render correctly", () => {
+    cy.contains("{{testName}}").should("exist");
+  });
+
+  // You can add more checks based on known hooks/components
+});

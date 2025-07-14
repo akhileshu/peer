@@ -1,0 +1,42 @@
+{{!-- ================================================================== --}}
+{{!-- Modal Component Template                                           --}}
+{{!-- args: isModalComponent, name                                       --}}
+{{#if isModalComponent}}
+import { Modal } from "@/components/ui/modal";
+
+export function {{pascalCase name}}Modal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} title="{{pascalCase name}} Modal">
+      <p>Modal content for {{pascalCase name}}</p>
+    </Modal>
+  );
+}
+
+{{!-- ================================================================== --}}
+{{!-- Table Component Template                                           --}}
+{{!-- args: isTableComponent, name                                       --}}
+{{else if isTableComponent}}
+import { Table } from "@/components/ui/table";
+
+export function {{pascalCase name}}Table({ data }: { data: any[] }) {
+  return (
+    <Table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((item) => (
+          <tr key={item.id}>
+            <td>{item.id}</td>
+            <td>{item.name}</td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+  );
+}
+
+{{/if}}

@@ -1,0 +1,60 @@
+"use client";
+
+import { AppCard } from "@/components/app/card";
+import { renderStatusMessage } from "@/components/app/status-message/renderStatusMessage";
+import { cn } from "@/lib/utils";
+import { {{camelCase name}}Actions } from "../../actions";
+
+{{#if isEditableView}}
+import { EditableCard } from "@/lib/form-and-inputs/editable-card";
+import { Edit{{pascalCase name}}Form } from "./edit-{{camelCase name}}-form";
+{{/if}}
+
+
+type {{pascalCase name}}DetailViewProps = {
+  className?: string;
+  {{camelCase name}}Result: Awaited<ReturnType<typeof {{camelCase name}}Actions.getById>>;
+};
+
+export function {{pascalCase name}}DetailView({
+  {{camelCase name}}Result,
+  className,
+}: {{pascalCase name}}DetailViewProps) {
+  const cardTitle = "{{pascalCase name}}";
+
+  const statusMessage = renderStatusMessage({{camelCase name}}Result, cardTitle);
+  if (statusMessage || !{{camelCase name}}Result.ok) return statusMessage;
+
+  const { data } = {{camelCase name}}Result;
+
+  {{#if isEditableView}}
+
+  return (
+    <AppCard title={cardTitle} className={cn("space-y-2", className)}>
+      <EditableCard
+          key={data.id}
+          title="{{pascalCase name}}"
+          className={className}
+          editForm={<Edit{{pascalCase name}}Form {{camelCase name}}={data} />}
+          renderComponent={<Render{{pascalCase name}} {{camelCase name}}={data} />}
+        />
+    </AppCard>
+  );
+  {{else}}
+  return (
+    <AppCard title={cardTitle} className={cn("space-y-2", className)}>
+      <Render{{pascalCase name}} {{camelCase name}}={data} />
+    </AppCard>
+  );
+  {{/if}}
+}
+
+type Render{{pascalCase name}}Props = {
+  {{camelCase name}}:unknown;
+};
+
+function Render{{pascalCase name}}({ {{camelCase name}} }: Render{{pascalCase name}}Props) {
+  return (
+   <div>edit this component to display details of {{pascalCase name}}</div>
+  );
+}

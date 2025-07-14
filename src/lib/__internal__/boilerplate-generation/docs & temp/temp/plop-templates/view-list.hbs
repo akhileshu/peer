@@ -1,0 +1,32 @@
+"use client";
+
+import { AppCard } from "@/components/app/card";
+import { renderStatusMessage } from "@/components/app/status-message/renderStatusMessage";
+import { get{{pascalCase name}}s } from "@/features/{{camelCase name}}/actions/{{camelCase name}}Actions";
+import { {{pascalCase name}}DetailCard } from "./{{pascalCase name}}DetailCard";
+import { cn } from "@/lib/utils";
+
+type {{pascalCase name}}ListViewProps = {
+  className?: string;
+  {{camelCase name}}sResult: Awaited<ReturnType<typeof get{{pascalCase name}}s>>;
+};
+
+export function {{pascalCase name}}ListView({
+  {{camelCase name}}sResult,
+  className,
+}: {{pascalCase name}}ListViewProps) {
+  const cardTitle = "{{pascalCase name}} List";
+
+  const statusMessage = renderStatusMessage({{camelCase name}}sResult, cardTitle);
+  if (statusMessage || !{{camelCase name}}sResult.ok) return statusMessage;
+
+  const { data } = {{camelCase name}}sResult;
+
+  return (
+    <AppCard title={cardTitle} className={cn("space-y-4", className)}>
+      {data.map((item) => (
+        <{{pascalCase name}}DetailCard key={item.id} {{camelCase name}}={item} />
+      ))}
+    </AppCard>
+  );
+}

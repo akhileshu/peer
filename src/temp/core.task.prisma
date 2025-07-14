@@ -1,0 +1,334 @@
+enum taskStatus {
+  OPEN
+  APPROVED
+  IN_DEVELOPMENT
+  PARKED
+  TESTING
+  READY_FOR_BUILD
+  UNDER_REVIEW
+  REQUIRES_ITERATION
+  DONE
+}
+
+enum OutcomeStatus {
+  OK
+  EXCEEDS
+  FAILED
+}
+
+enum ResourceType {
+  GIT_REPO
+  DOC
+  VIDEO
+  TOOL
+  ARTICLE
+  PDF
+}
+
+// /**
+//  * Analytics → Understand user behavior and friction points
+//  * Persona → Design for user needs and goals
+//  * User Journey → Map end-to-end experience
+//  * User Feedback → Gather direct insights to refine UX
+//  */
+model Task {
+  id          String   @id @default(uuid())
+  title       String
+  type        String
+  description String?
+  tags        String[]
+  // no need of what , why fields - okr's are good
+
+  status taskStatus @default(OPEN)
+
+  // all expected vs actual can be handled in okr's
+
+  featureId String
+  feature   Feature @relation(fields: [featureId], references: [id])
+  phaseId   String
+  phase     Phase   @relation(fields: [phaseId], references: [id])
+
+  assigneeId String?
+  assignee   User?   @relation("AssignedTasks", fields: [assigneeId], references: [id])
+  reporterId String?
+  reporter   User?   @relation("ReportedTasks", fields: [reporterId], references: [id])
+
+  workLogs WorkLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  taskEngineeringDetail TaskEngineeringDetail?
+  taskProductDetail     TaskProductDetail?
+  taskUxDetail          TaskUxDetail?
+  Idea                  Idea?                  @relation(fields: [ideaId], references: [id])
+  ideaId                String?
+  TechCategories        TechCategory[]         @default([])
+
+  outgoingRelations TaskRelation[] @relation("FromTask")
+  incomingRelations TaskRelation[] @relation("ToTask")
+  /**
+   * todo : we might plan to include
+   * history           TaskHistory[]
+   */
+}
+
+model TaskRelation {
+  id           String           @id @default(uuid())
+  fromTaskId   String
+  toTaskId     String
+  relationType TaskRelationType
+
+  fromTask Task @relation("FromTask", fields: [fromTaskId], references: [id])
+  toTask   Task @relation("ToTask", fields: [toTaskId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+enum TaskRelationType {
+  BLOCKS
+  BLOCKED_BY
+  DUPLICATES
+  RELATED
+  PARENT
+  CHILD
+}
+
+model TaskEngineeringDetail {
+  id                String   @id @default(uuid())
+  how               String // dev gives a short brief
+  challenges        String?
+  decisionCriteria  String?
+  buildVsBuy        String?
+  improvementPlan   String?
+  shippingImperfect Boolean  @default(false)
+  pivotReason       String?
+  Risk              Risk?    @relation(fields: [riskId], references: [id])
+  riskId            String?  @unique
+  reusableAssetNote String?
+  resourcesUsed     String[]
+  atomicTasks       Json // ui , db , api etc
+  effortArea        String? // by dev
+  effortScore       Float?
+
+  task      Task     @relation(fields: [taskId], references: [id])
+  taskId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("engineeringDetails")
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model Risk {
+  id                    String                 @id @default(uuid())
+  level                 RiskLevel
+  type                  String // delivery, tech, market, legal
+  mitigationPlan        String?
+  taskEngineeringDetail TaskEngineeringDetail?
+}
+
+model TaskProductDetail {
+  id            String    @id @default(uuid())
+  impactArea    String? // by product manager
+  impactScore   Float?
+  priorityScore Float? //impact/effort
+  okrId         String?
+  okr           OKR?      @relation(fields: [okrId], references: [id])
+  timeboxes     Timebox[]
+  startDate     DateTime?
+  endDate       DateTime?
+
+  task      Task     @relation(fields: [taskId], references: [id])
+  taskId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  /**
+   * todo: plan to add
+   * baselineMetrics Json? // Before task implementation
+   * targetMetrics Json? // Expected after implementation
+   * actualMetrics Json? // Measured results
+   */
+
+  @@map("productDetails")
+}
+
+model TaskHistory {
+  id           String   @id @default(uuid())
+  changedField String
+  oldValue     Json
+  newValue     Json
+  changedBy    String
+  changedAt    DateTime @default(now())
+  // Task         Task?    @relation(fields: [taskId], references: [id])
+  // taskId       String?
+}
+
+model OKR {
+  id        String   @id @default(uuid())
+  title     String
+  createdAt DateTime @default(now())
+
+  outcomeAligned Boolean? // true = met, false = not met, null = not reviewed - can be calculated field based on logic
+  outcomeNotes   String?
+
+  keyResults        KeyResult[]
+  taskProductDetail TaskProductDetail[]
+}
+
+model KeyResult {
+  id        String         @id @default(uuid())
+  okrId     String
+  okr       OKR            @relation(fields: [okrId], references: [id])
+  area      WorkArea // todo : brainstorm - is it ok that OKR's have results with multiple work area
+  result    String
+  status    OutcomeStatus?
+  notes     String?
+  createdAt DateTime       @default(now())
+}
+
+model TaskUxDetail {
+  id                   String       @id @default(uuid())
+  customerFeedbackLink String?
+  analyticsData        Json?
+  analyticsLink        String?
+  analyticsNotes       String?
+  userJourneyId        String?
+  userJourney          UserJourney? @relation(fields: [userJourneyId], references: [id])
+  UserPersona          UserPersona? @relation(fields: [userPersonaId], references: [id])
+  userPersonaId        String?
+
+  task      Task     @relation(fields: [taskId], references: [id])
+  taskId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("uxDetails")
+}
+
+model UserPersona {
+  id         String   @id @default(uuid())
+  name       String
+  goals      String[]
+  painPoints String[]
+
+  createdAt    DateTime       @default(now())
+  taskUxDetail TaskUxDetail[]
+}
+
+model UserJourney {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  persona     String?
+  diagramLink String?
+  createdAt   DateTime @default(now())
+
+  Idea         Idea[]
+  taskUxDetail TaskUxDetail[]
+}
+
+model WorkLog {
+  id        String   @id @default(uuid())
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  startTime DateTime
+  endTime   DateTime
+  duration  Int
+  comment   String?
+
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  message   String
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Resource {
+  id          String       @id @default(uuid())
+  name        String
+  type        ResourceType
+  url         String
+  description String?
+
+  TemplateResource TemplateResource[]
+
+  createdAt DateTime @default(now())
+}
+
+model Calendar {
+  id        String    @id @default(uuid())
+  name      String
+  timeboxes Timebox[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Timebox {
+  id    String   @id @default(uuid())
+  title String?
+  start DateTime
+  end   DateTime
+
+  calendarId String
+  calendar   Calendar @relation(fields: [calendarId], references: [id])
+
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  taskProductDetail TaskProductDetail? @relation(fields: [productDetailsId], references: [id])
+  productDetailsId  String?
+}
+
+enum WorkArea {
+  ENGINEERING //  Improve CI/CD pipeline speed by 30%
+  PRODUCT_MANAGEMENT // Increase adoption of new feature by 25%
+  USER_EXPERIENCE //Reduce user drop-off rate on onboarding screen
+}
+
+// todo : integrate todo's - into our app , in product management life cycle - we get many thoughts but we dont retain them all 
+model TodoNote {
+  id        String   @id @default(uuid())
+  content   String
+  type      TodoType
+  linkedTo  String? // Optional metadata: “task/feature/idea”
+  linkId    String? // ID of the linked item
+  createdBy String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TodoType {
+  IDEA
+  FEEDBACK
+  TASK
+  QUESTION
+}
+
+enum TechCategory {
+  SECURITY
+  PERFORMANCE
+  SCALABILITY
+  TESTING
+  DEVOPS
+  MAINTAINABILITY
+  RELIABILITY
+  COMPLIANCE
+  ACCESSIBILITY
+  LOCALIZATION
+  MOBILE_OPTIMIZATION
+  TECH_DEBT
+}

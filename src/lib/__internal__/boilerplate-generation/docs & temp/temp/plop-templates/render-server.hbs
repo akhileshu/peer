@@ -1,0 +1,44 @@
+import { AppCard } from "@/components/app/card";
+import { renderStatusMessage } from "@/components/app/status-message/renderStatusMessage";
+import { get{{pascalCase name}}s, get{{pascalCase name}}ById } from "@/features/{{camelCase name}}/actions/{{camelCase name}}Actions";
+import { cn, formatDate } from "@/lib/utils";
+
+// Render List of {{pascalCase name}}s
+export async function Render{{pascalCase name}}s({ className }: { className?: string }) {
+  const {{camelCase name}}sResult = await get{{pascalCase name}}s();
+  const cardTitle = "{{pascalCase name}} List";
+  
+  const statusMessage = renderStatusMessage({{camelCase name}}sResult, cardTitle);
+  if (statusMessage || !{{camelCase name}}sResult.ok) return statusMessage;
+
+  const { data } = {{camelCase name}}sResult;
+
+  return (
+    <AppCard title={cardTitle} className={cn("", className)}>
+      {data.map((item) => (
+        <div key={item.id}>
+          {/* Render your item here */}
+        </div>
+      ))}
+    </AppCard>
+  );
+}
+
+// Render Single {{pascalCase name}}
+export async function Render{{pascalCase name}}({ id, className }: { id: string; className?: string }) {
+  const {{camelCase name}}Result = await get{{pascalCase name}}ById(id);
+  const cardTitle = "{{pascalCase name}}";
+  
+  const statusMessage = renderStatusMessage({{camelCase name}}Result, cardTitle);
+  if (statusMessage || !{{camelCase name}}Result.ok) return statusMessage;
+
+  const { data } = {{camelCase name}}Result;
+
+  return (
+    <AppCard title={cardTitle} className={cn("", className)}>
+      <div key={data.id}>
+        {/* Render your item here */}
+      </div>
+    </AppCard>
+  );
+}

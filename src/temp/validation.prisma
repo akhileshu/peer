@@ -1,0 +1,23 @@
+// # ValidationMetric, EarlyAdopter
+
+model EarlyAdopter {
+  id         String   @id @default(uuid())
+  mvpDetailId String
+  mvpDetail   MVPDetail @relation(fields: [mvpDetailId], references: [id])
+
+  name       String
+  contact    String
+  role       String?  // e.g. "Tester", "Influencer"
+  notes      String?
+}
+model ValidationMetric {
+  id         String         @id @default(uuid())
+  mvpDetailId String
+  mvpDetail   MVPDetail @relation(fields: [mvpDetailId], references: [id])
+
+  goal       String         // e.g. "Get 500 signups"
+  metric     String         // e.g. "Signup count"
+  target     Float
+  actual     Float?
+  status     OutcomeStatus?
+}

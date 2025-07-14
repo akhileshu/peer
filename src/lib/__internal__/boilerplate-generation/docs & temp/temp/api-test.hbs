@@ -1,0 +1,75 @@
+import { NextApiRequest, NextApiResponse } from 'next';
+import handler from '../{{dashCase name}}/route';
+import { {{firstServerAction serverActions}} } from '../../../server-actions';
+import { {{firstZodSchema zodSchemas}} } from '../../../schemas';
+
+jest.mock('../../../server-actions', () => ({
+  {{firstServerAction serverActions}}: jest.fn()
+}));
+
+jest.mock('../../../schemas', () => ({
+  {{firstZodSchema zodSchemas}}: {
+    parse: jest.fn()
+  }
+}));
+
+describe('/api/{{dashCase name}}', () => {
+  let req: Partial<NextApiRequest>;
+  let res: Partial<NextApiResponse> & { _json: any };
+
+  beforeEach(() => {
+    req = {
+      method: 'GET',
+      body: {}
+    };
+    res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockImplementation((data) => {
+        res._json = data;
+        return res;
+      }),
+      setHeader: jest.fn(),
+      end: jest.fn()
+    };
+    jest.clearAllMocks();
+  });
+
+  describe('GET', () => {
+    it('returns 200 for valid requests', async () => {
+      req.method = 'GET';
+      await handler(req as NextApiRequest, res as NextApiResponse);
+      expect(res.status).toHaveBeenCalledWith(200);
+    });
+  });
+
+  describe('POST', () => {
+    it('validates input and returns 200', async () => {
+      req.method = 'POST';
+      req.body = { /* valid input */ };
+      
+      ({{firstZodSchema zodSchemas}}.parse as jest.Mock).mockReturnValue(req.body);
+      ({{firstServerAction serverActions}} as jest.Mock).mockResolvedValue({ success: true });
+
+      await handler(req as NextApiRequest, res as NextApiResponse);
+      
+      expect({{firstZodSchema zodSchemas}}.parse).toHaveBeenCalledWith(req.body);
+      expect({{firstServerAction serverActions}}).toHaveBeenCalledWith(req.body);
+      expect(res.status).toHaveBeenCalledWith(200);
+    });
+
+    it('returns 400 for invalid input', async () => {
+      req.method = 'POST';
+      req.body = { /* invalid input */ };
+      
+      ({{firstZodSchema zodSchemas}}.parse as jest.Mock).mockImplementation(() => {
+        throw new Error('Validation error');
+      });
+
+      await handler(req as NextApiRequest, res as NextApiResponse);
+      
+      expect(res.status).toHaveBeenCalledWith(400);
+    });
+  });
+
+  // Add more test cases for other methods
+});

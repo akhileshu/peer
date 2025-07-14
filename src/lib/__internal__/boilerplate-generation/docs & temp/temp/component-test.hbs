@@ -1,0 +1,44 @@
+import React from 'react';
+import { render, screen, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { {{properCase name}} } from '../{{dashCase name}}';
+
+// Mock hooks if needed
+jest.mock('../../hooks/use{{properCase (first hooks)}}', () => ({
+  use{{properCase (first hooks)}}: () => ({
+    // Mock implementation
+  })
+}));
+
+describe('<{{properCase name}} />', () => {
+  const defaultProps = {
+    // Add default props here
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders without crashing', () => {
+    render(<{{properCase name}} {...defaultProps} />);
+    expect(screen.getByTestId('{{dashCase name}}-component')).toBeInTheDocument();
+  });
+
+  it('displays loading state', () => {
+    // Test loading state
+  });
+
+  it('handles user interactions', async () => {
+    render(<{{properCase name}} {...defaultProps} />);
+    
+    await act(async () => {
+      // Simulate user interactions
+    });
+
+    // Assert expected outcomes
+  });
+
+  it('displays error message when there is an error', () => {
+    // Test error state
+  });
+});

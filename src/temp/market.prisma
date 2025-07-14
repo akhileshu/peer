@@ -1,0 +1,33 @@
+// # TargetMarket, GoToMarket, Positioning
+
+model Positioning {
+  id              String   @id @default(uuid())
+  mvpDetailId String
+  mvpDetail   MVPDetail @relation(fields: [mvpDetailId], references: [id])
+
+  valueProp       String
+  differentiation String
+  slogan          String?
+  tagline         String?
+}
+
+model GoToMarket {
+  id         String   @id @default(uuid())
+  mvpDetailId String
+  mvpDetail   MVPDetail @relation(fields: [mvpDetailId], references: [id])
+
+  strategy   String   // e.g. "Product Hunt"
+  budget     Float?
+  channels   String[] // e.g. ["Email", "LinkedIn"]
+  notes      String?
+}
+model TargetMarket {
+  id         String   @id @default(uuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+
+  segment    String   // e.g. "SaaS founders"
+  painPoints String[] // top issues faced
+  size       String?  // TAM/SAM/SOM (optional)
+  notes      String?
+}

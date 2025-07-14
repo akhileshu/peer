@@ -1,0 +1,50 @@
+"use client";
+
+import { AppCard } from "@/components/app/card";
+import { renderStatusMessage } from "@/components/app/status-message/renderStatusMessage";
+import { cn } from "@/lib/utils";
+import { {{camelCase name}}Actions } from "../../actions";
+import Link from "next/link";
+import { Button } from "@/lib/form-and-inputs/button";
+
+type {{pascalCase name}}MinimalInfoProps = {
+  {{camelCase name}}:unknown;
+};
+function {{pascalCase name}}MinimalInfo({ {{camelCase name}} }: {{pascalCase name}}MinimalInfoProps) {
+  return (
+    <Link key={ {{pascalCase name}}.id} href={`/{{camelCase name}}s/${ {{pascalCase name}}.id}`}>
+      <div className="p-4 border rounded hover:bg-gray-50 transition cursor-pointer space-y-1">
+        update boilerplate here
+      </div>
+    </Link>
+  );
+}
+
+type {{pascalCase name}}ListViewProps = {
+  className?: string;
+  {{camelCase name}}sResult: Awaited<ReturnType<typeof {{camelCase name}}Actions.getAll>>;
+};
+export function {{pascalCase name}}ListView({
+  {{camelCase name}}sResult,
+  className,
+}: {{pascalCase name}}ListViewProps) {
+  const cardTitle = "{{pascalCase name}} List";
+
+  const statusMessage = renderStatusMessage({{camelCase name}}sResult, cardTitle);
+  if (statusMessage || !{{camelCase name}}sResult.ok) return statusMessage;
+
+  const { data } = {{camelCase name}}sResult;
+
+  return (
+    <AppCard title={cardTitle} className={cn("space-y-4", className)}>
+      <div>
+        <Button className="" disabled={false} onClick={console.log} >
+          create {{camelCase name}}
+        </Button>
+        {data.map((item) => (
+          <{{pascalCase name}}MinimalInfo key={item.id} {{camelCase name}}={item} />
+        ))}
+      </div>
+    </AppCard>
+  );
+}

@@ -1,0 +1,64 @@
+"use client";
+
+import { AppCard } from "@/components/app/card";
+import { renderStatusMessage } from "@/components/app/status-message/renderStatusMessage";
+import { get{{pascalCase name}}s, get{{pascalCase name}}ById } from "@/features/{{camelCase name}}/actions/{{camelCase name}}Actions";
+import { cn } from "@/lib/utils";
+
+type Render{{pascalCase name}}sProps = {
+  className?: string;
+  {{camelCase name}}sResult: Awaited<ReturnType<typeof get{{pascalCase name}}s>>;
+};
+
+type Render{{pascalCase name}}Props = {
+  className?: string;
+  {{camelCase name}}Result: Awaited<ReturnType<typeof get{{pascalCase name}}ById>>;
+};
+
+// For List
+export function Render{{pascalCase name}}s({
+  {{camelCase name}}sResult,
+  className,
+}: Render{{pascalCase name}}sProps) {
+  const cardTitle = "{{pascalCase name}} List";
+
+  const statusMessage = renderStatusMessage({{camelCase name}}sResult, cardTitle);
+  if (statusMessage || !{{camelCase name}}sResult.ok) return statusMessage;
+
+  const { data } = {{camelCase name}}sResult;
+
+  return (
+    <AppCard title={cardTitle} className={cn("", className)}>
+      <div className="divide-y">
+        {data.map((item) => (
+          <div key={item.id} className="">
+            {/* Render your item here */}
+          </div>
+        ))}
+      </div>
+    </AppCard>
+  );
+}
+
+// For Single Item
+export function Render{{pascalCase name}}({
+  {{camelCase name}}Result,
+  className,
+}: Render{{pascalCase name}}Props) {
+  const cardTitle = "{{pascalCase name}}";
+
+  const statusMessage = renderStatusMessage({{camelCase name}}Result, cardTitle);
+  if (statusMessage || !{{camelCase name}}Result.ok) return statusMessage;
+
+  const { data } = {{camelCase name}}Result;
+
+  return (
+    <AppCard title={cardTitle} className={cn("", className)}>
+      <div className="divide-y">
+        <div key={data.id} className="">
+          {/* Render your item here */}
+        </div>
+      </div>
+    </AppCard>
+  );
+}

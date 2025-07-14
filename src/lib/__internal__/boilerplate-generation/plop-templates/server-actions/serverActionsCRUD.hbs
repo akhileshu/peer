@@ -1,0 +1,80 @@
+"use server";
+
+import {   FetchResponse,
+  MutateResponse,
+  fetchError,
+  fetchErrorNotLoggedIn,
+  fetchSuccess,
+  handleFetchAction,
+  handleMutateAction,
+  mutateError,
+  mutateErrorNotLoggedIn,
+  mutateSuccess,
+  parseFormData,  } from "@/lib/server-actions/handleAction";
+
+
+import { getServerUser } from "@/lib/auth/lib";
+import { myPrisma } from "@/lib/db/prisma";
+import { getMessage } from "@/lib/message/lib/get-message";
+
+import { create{{pascalCase name}}Schema, edit{{pascalCase name}}Schema, delete{{pascalCase name}}Schema } from "../schemas";
+
+import {
+  checkLimit,
+  incrementLimit,
+} from "../../../lib/limit-db-writes/limitHandler";
+
+export async function get{{pascalCase name}}s(): Promise<FetchResponse<unknown>> {
+  return handleFetchAction(async () => {
+    const {{camelCase name}}s = await myPrisma.{{camelCase schemaName}}.findMany();
+    return fetchSuccess({{camelCase name}}s);
+  });
+}
+
+export async function get{{pascalCase name}}ById(id: string): Promise<FetchResponse<unknown>> {
+  return handleFetchAction(async () => {
+    const {{camelCase name}} = await myPrisma.{{camelCase schemaName}}.findUnique({
+      where: { id },
+    });
+    return fetchSuccess({{camelCase name}});
+  });
+}
+
+export async function create{{pascalCase name}}(_: unknown, formData: FormData): Promise<MutateResponse<undefined, typeof create{{pascalCase name}}Schema>> {
+  return handleMutateAction(async () => {
+    const user = await getServerUser();
+    if (!user) return mutateErrorNotLoggedIn;
+
+    const { data, fieldErrors } = parseFormData(formData, create{{pascalCase name}}Schema);
+    if (fieldErrors) return mutateError(getMessage("{{camelCase name}}", "CREATE_ERROR"), fieldErrors);
+
+    await myPrisma.{{camelCase schemaName}}.create({ data: { ...data, userId: user.id } });
+    return mutateSuccess(getMessage("{{camelCase name}}", "CREATE_SUCCESS"));
+  });
+}
+
+export async function update{{pascalCase name}}(_: unknown, formData: FormData): Promise<MutateResponse<undefined, typeof edit{{pascalCase name}}Schema>>  {
+  return handleMutateAction(async () => {
+    const user = await getServerUser();
+    if (!user) return mutateErrorNotLoggedIn;
+
+    const { data, fieldErrors } = parseFormData(formData, edit{{pascalCase name}}Schema);
+    if (fieldErrors) return mutateError(getMessage("{{camelCase name}}", "UPDATE_ERROR"), fieldErrors);
+
+    await myPrisma.{{camelCase schemaName}}.update({ where: { id: data.id, userId: user.id }, data });
+    return mutateSuccess(getMessage("{{camelCase name}}", "UPDATE_SUCCESS"));
+  });
+}
+
+export async function delete{{pascalCase name}}(_: unknown, formData: FormData): Promise<MutateResponse<undefined, typeof delete{{pascalCase name}}Schema>> {
+  return handleMutateAction(async () => {
+    const user = await getServerUser();
+    if (!user) return mutateErrorNotLoggedIn;
+
+    const { data, fieldErrors } = parseFormData(formData, delete{{pascalCase name}}Schema);
+    if (fieldErrors) return mutateError(getMessage("{{camelCase name}}", "DELETE_ERROR"), fieldErrors);
+
+    await myPrisma.{{camelCase schemaName}}.delete({ where: { id: data.id, userId: user.id } });
+    return mutateSuccess(getMessage("{{camelCase name}}", "DELETE_SUCCESS"));
+  });
+}

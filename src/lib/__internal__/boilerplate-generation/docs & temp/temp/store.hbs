@@ -1,0 +1,63 @@
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+import type { {{firstType types}} } from '../types';
+
+interface {{properCase name}}State {
+  data: {{firstType types}}[];
+  loading: boolean;
+  error: string | null;
+  currentItem: {{firstType types}} | null;
+  actions: {
+    fetch: () => Promise<void>;
+    getById: (id: string) => Promise<{{firstType types}} | null>;
+    create: (item: Omit<{{firstType types}}, 'id'>) => Promise<void>;
+    update: (id: string, updates: Partial<{{firstType types}}>) => Promise<void>;
+    delete: (id: string) => Promise<void>;
+    setCurrent: (item: {{firstType types}} | null) => void;
+  };
+}
+
+export const {{store}} = create<{{properCase name}}State>()(
+  devtools(
+    persist(
+      (set, get) => ({
+        data: [],
+        loading: false,
+        error: null,
+        currentItem: null,
+        actions: {
+          fetch: async () => {
+            set({ loading: true, error: null });
+            try {
+              // Implementation
+            } catch (error) {
+              set({ error: error.message });
+            } finally {
+              set({ loading: false });
+            }
+          },
+          getById: async (id) => {
+            // Implementation
+          },
+          create: async (item) => {
+            // Implementation
+          },
+          update: async (id, updates) => {
+            // Implementation
+          },
+          delete: async (id) => {
+            // Implementation
+          },
+          setCurrent: (item) => set({ currentItem: item })
+        }
+      }),
+      {
+        name: '{{dashCase name}}-store',
+        partialize: (state) => ({ data: state.data }) // Only persist data
+      }
+    )
+  )
+);
+
+// Optional: Export actions separately for easier usage
+export const use{{properCase name}}Actions = () => {{store}}((state) => state.actions);

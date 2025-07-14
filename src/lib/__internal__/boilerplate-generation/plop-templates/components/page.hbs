@@ -1,0 +1,36 @@
+import { cn } from "@/lib/utils";
+
+import { {{camelCase name}}Actions } from "@/features/{{camelCase name}}/actions";
+
+import { {{pascalCase name}}ListView  } from "@/features/{{kebabCase name}}/components/{{kebabCase name}}/{{kebabCaseJoin name "listView"}}";
+import { {{pascalCase name}}DetailView } from "@/features/{{kebabCase name}}/components/{{kebabCase name}}/{{kebabCaseJoin name "DetailView"}}";
+
+type PageProps = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function {{#if renderAsList}}{{camelCase name}}{{else}}{{camelCase name}}s{{/if}}({
+  params,
+  searchParams,
+}: PageProps) {
+  //const { slug } = await params;
+  //const filters = (await searchParams).filters;
+
+  {{#if renderAsList}}
+// Render List of {{pascalCase name}}s
+
+  const {{camelCase name}}sResult = await {{camelCase name}}Actions.getAll();
+  return (
+    <{{pascalCase name}}ListView {{camelCase name}}sResult={ {{camelCase name}}sResult } className={cn("")} />
+  );
+
+  {{else}}
+  // Render Single {{pascalCase name}}
+    const {{camelCase name}}Result = await {{camelCase name}}Actions.getById();
+
+  return (
+    <{{pascalCase name}}DetailView {{camelCase name}}Result={ {{camelCase name}}Result } className={cn("")} />
+  );
+  {{/if}}
+}

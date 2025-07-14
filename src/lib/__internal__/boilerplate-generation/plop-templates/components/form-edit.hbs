@@ -1,0 +1,61 @@
+"use client";
+
+import { AppCard } from "@/components/app/card";
+import { Button } from "@/lib/form-and-inputs/button";
+import AppForm from "@/lib/form-and-inputs/form";
+import { useHandleFormState } from "@/lib/form-and-inputs/useHandleFormState";
+import { initialState } from "@/lib/server-actions/handleAction";
+import { useActionState, useEffect } from "react";
+import { {{camelCase name}}Actions } from "../../actions";
+
+type Edit{{pascalCase name}}FormProps = {
+  {{camelCase name}}: any;
+  onCancel?: () => void;
+};
+
+export function Edit{{pascalCase name}}Form({ {{camelCase name}}, onCancel }: Edit{{pascalCase name}}FormProps) {
+  const [state, formAction, isPending] = useActionState(
+    {{camelCase name}}Actions.update,
+    initialState
+  );
+  const { fieldErrors } = state ?? {};
+
+  useHandleFormState({
+    state,
+    revalidatePath: "/placeholderPath",
+  });
+
+  useEffect(() => {
+    if (state.ok && onCancel) {
+      onCancel();
+    }
+  }, [onCancel, state.ok]);
+
+  return (
+    <AppCard title="Edit {{pascalCase name}}">
+      <AppForm
+        className="space-y-4 max-w-md"
+        action={formAction}
+        variant="default"
+        submitVariant="default"
+        submitProps={ {
+          isPending,
+          buttonState: { disabled: isPending },
+          label: "Update {{pascalCase name}}",
+        } }
+      >
+        <p>Edit form fields for {{camelCase name}} go here.</p>
+
+        {onCancel && (
+          <Button
+            className="mr-2 text-red-600"
+            disabled={isPending}
+            onClick={onCancel}
+          >
+            Cancel
+          </Button>
+        )}
+      </AppForm>
+    </AppCard>
+  );
+}

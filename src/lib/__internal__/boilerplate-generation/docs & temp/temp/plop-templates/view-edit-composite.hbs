@@ -1,0 +1,21 @@
+import { View{{pascalCase name}} } from "./view-detail";
+import { Edit{{pascalCase name}}Form } from "./form-edit";
+import { useEditToggle } from "@/lib/forms-inputs/utils";
+import { Button } from "@/lib/forms-inputs/button";
+
+export function {{pascalCase name}}CompositeView({ {{camelCase name}} }: { {{camelCase name}}: any }) {
+  const { editing, startEditing, cancelEditing } = useEditToggle();
+
+  return (
+    <div className="space-y-4">
+      {!editing ? (
+        <>
+          <Button onClick={startEditing}>Edit</Button>
+          <View{{pascalCase name}} {{camelCase name}}={ {{camelCase name}} } />
+        </>
+      ) : (
+        <Edit{{pascalCase name}}Form {{camelCase name}}={ {{camelCase name}} } onCancel={cancelEditing} />
+      )}
+    </div>
+  );
+}

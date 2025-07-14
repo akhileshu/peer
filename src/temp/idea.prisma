@@ -1,0 +1,36 @@
+model Idea {
+  id          String     @id @default(uuid()) // Unique idea ID
+  title       String // Short title of the idea
+  description String? // Detailed explanation
+  authorId    String // Who suggested the idea
+  author      User       @relation(fields: [authorId], references: [id])
+  status      IdeaStatus @default(SUGGESTED) // Current stage of the idea
+  tags        String[] // Tags for filtering/classification
+  votes       Int        @default(0) // Upvotes or likes
+
+  //TODO : IMPACT , EFFORT RELATED DETAILS NEED TO RESTRUCTURED
+  impactArea  String?
+  impactScore Float?
+
+  scope           IdeaScope @default(TBD) // feature, task, tbd
+  relatedFeatures Feature[] // Many-to-many if scope becomes feature
+  relatedTasks    Task[] // Many-to-many if scope becomes task
+
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  UserJourney   UserJourney? @relation(fields: [userJourneyId], references: [id])
+  userJourneyId String?
+}
+
+enum IdeaStatus {
+  SUGGESTED // Just added by a user
+  UNDER_REVIEW // Being evaluated or discussed
+  ACCEPTED // Approved to become a feature/task
+  REJECTED // Not moving forward
+}
+
+enum IdeaScope {
+  FEATURE
+  TASK
+  TBD
+}

@@ -1,0 +1,56 @@
+{{!-- ================================================================== --}}
+{{!-- Utility Function Template                                          --}}
+{{!-- args: isUtils, name                                                --}}
+{{#if isUtils}}
+export function {{camelCase name}}(input: any) {
+  // TODO: implement utility logic
+  return input;
+}
+
+{{!-- ================================================================== --}}
+{{!-- Type Definition Template                                           --}}
+{{!-- args: isType, name                                                 --}}
+{{else if isType}}
+export type {{pascalCase name}} = {
+  id: string;
+  // add more fields here
+};
+
+{{!-- ================================================================== --}}
+{{!-- Prisma Model Template                                              --}}
+{{!-- args: isPrismaModel, name                                          --}}
+{{else if isPrismaModel}}
+model {{pascalCase name}} {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Add your fields here
+}
+
+{{!-- ================================================================== --}}
+{{!-- React Hook Template                                                --}}
+{{!-- args: isHook, name                                                 --}}
+{{else if isHook}}
+import { useState } from "react";
+
+export function {{camelCase name}}() {
+  const [state, setState] = useState(null);
+
+  return {
+    state,
+    setState,
+  };
+}
+
+{{!-- ================================================================== --}}
+{{!-- Constants Template                                                 --}}
+{{!-- args: isConstant, name                                             --}}
+{{else if isConstant}}
+export const {{camelCase name}} = {
+  EXAMPLE: "example_value",
+};
+
+export type {{pascalCase name}} = (typeof {{camelCase name}})[keyof typeof {{camelCase name}}];
+
+{{/if}}
