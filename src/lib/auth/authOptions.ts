@@ -10,6 +10,7 @@ export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(myPrisma),
   providers: [
     GoogleProvider({
+      allowDangerousEmailAccountLinking: true, //for error=OAuthAccountNotLinked :This lets users sign in with Google even if an existing user exists with that email, and NextAuth will auto-link it.
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
@@ -29,6 +30,9 @@ export const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      return "/feedz"; // always redirect to /feed after login
+    },
     async jwt({ token, user, account, trigger, session }) {
       const utils = {
         setTokenOnFirstLogin: () => {
@@ -94,9 +98,13 @@ export const authOptions: AuthOptions = {
         return token;
       }
 
-      const { shouldRefreshToken } = utils.getTokenStatus();
+      const { shouldRefreshToken, isTokenValidOnSubsequentRequest } =
+        utils.getTokenStatus();
       if (account) utils.setTokenOnFirstLogin();
-      else if (shouldRefreshToken) await utils.refreshExpiredToken();
+      else if (!isTokenValidOnSubsequentRequest && !shouldRefreshToken) {
+        token.error = "TokenExpired";
+        return token;
+      } else if (shouldRefreshToken) await utils.refreshExpiredToken();
 
       await utils.setUserInfoInToken();
 
@@ -106,7 +114,7 @@ export const authOptions: AuthOptions = {
     async session({ session, token }) {
       function setSessionFromToken() {
         const { id, access_token, isProfileSetupDone, error } = token;
-        console.log({ token });
+        // console.log({ token });
         session.user.id = id;
         session.accessToken = access_token;
         session.user.isProfileSetupDone = isProfileSetupDone;

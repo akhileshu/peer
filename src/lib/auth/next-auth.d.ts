@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Auth } from "googleapis";
 import NextAuth from "next-auth";
 
+type AuthError = "RefreshTokenError" | "TokenExpired";
 declare module "next-auth" {
   interface Session {
     user: {
@@ -11,7 +13,7 @@ declare module "next-auth" {
       isProfileSetupDone: boolean;
     };
     accessToken?: string;
-    error?: "RefreshTokenError";
+    error?: AuthError;
   }
 }
 
@@ -21,7 +23,7 @@ declare module "next-auth/jwt" {
     access_token: string;
     expires_at: number;
     refresh_token?: string;
-    error?: "RefreshTokenError";
+    error?: AuthError;
     isProfileSetupDone: boolean;
   }
 }

@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // tsconfigPath: "tsconfig.dev.json",
+  trustedHosts: ["localhost:3000", /\.app\.github\.dev$/],
+  allowedOrigins: ["localhost:3000", /\.app\.github\.dev$/],
   compiler: {
     removeConsole: false,
   },

@@ -16,11 +16,13 @@ export default function SetupProfile() {
     initialState
   );
   const { fieldErrors } = state;
-  const {userInput:{LabeledField}}=Components
+  const {
+    userInput: { LabeledField },
+  } = Components;
   lib.ui.useHandleFormState({
     state,
     revalidatePath: "/placeholderPath",
-    navigateTo: "/api/auth/session",
+    // navigateTo: "/api/auth/session",
   });
 
   useEffect(() => {

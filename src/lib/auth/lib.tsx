@@ -10,3 +10,4 @@ export const getServerUser = async () => {
 
   return session.user;
 };
+

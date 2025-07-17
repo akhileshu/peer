@@ -5,15 +5,30 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const { Button } = Components.userInput;
 
 export default function AuthStatus() {
   const { data: session } = useSession();
-  if (session?.error === "RefreshTokenError") {
-    signIn("google"); // Force sign in to obtain a new set of access and refresh tokens
-    return;
-  }
+
+  useEffect(() => {
+    const shouldForceLogin = !session?.user?.id ||
+      session?.error === "TokenExpired" ||
+      session?.error === "RefreshTokenError"
+    if (shouldForceLogin) {
+      toast.error(
+        `${
+          session?.error || "You are not Logged In"
+        }. Redirecting you to sign in again.`
+      );
+      setTimeout(() => {
+        signIn("google");
+      }, 2000);
+    }
+  }, [session]);
+
   return (
     <div>
       {session ? (
@@ -55,5 +70,13 @@ function LogoutButton() {
     <Button disabled={false} onClick={handleSignOut}>
       Sign Out
     </Button>
+  );
+}
+
+function PopupBeforeForceLogin() {
+  return (
+    <div className="fixed bottom-4 right-4 bg-red-500 text-white p-2 rounded shadow">
+      Session expired. Re-authenticating...
+    </div>
   );
 }
