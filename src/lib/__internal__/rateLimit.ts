@@ -1,8 +1,11 @@
+import { NextRequest } from "next/server";
+
 const RATE_LIMIT = 30; // Max requests per minute
 const EXPIRY_TIME = 60 * 1000; // 1 minute
 const requestMap = new Map<string, { count: number; timestamp: number }>();
 
-export function rateLimit(ip: string): boolean {
+export function rateLimit(request: NextRequest): boolean {
+  const ip = request.headers.get("x-forwarded-for") || "local";
   const now = Date.now();
   const requestInfo = requestMap.get(ip) || { count: 0, timestamp: now };
 

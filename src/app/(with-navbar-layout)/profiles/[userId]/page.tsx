@@ -1,6 +1,7 @@
 // Single public profile view
 
 import { Components } from "@/components";
+import { lib } from "@/lib";
 import { ScheduleMeetingDialog } from "@/services/meeting/components/ScheduleMeetingButton";
 import { hasMeetingWithUser } from "@/services/meeting/lib";
 import { profile } from "@/services/profile";
@@ -11,7 +12,7 @@ type Params = Promise<{ userId: string }>;
 export default async function Page({ params }: { params: Params }) {
   const { userId } = await params;
   const profileResult = await profile.actions.getById(userId);
-  const statusMessage =  Components.utils.renderStatusMessage(profileResult, "cardTitle");
+  const statusMessage =  lib.ui.renderStatusMessage(profileResult, "cardTitle");
   if (statusMessage || !profileResult.ok) return statusMessage;
 
   const { data: user } = profileResult;
@@ -36,10 +37,7 @@ export function UserProfileDetails({
 }: {
   profileResult: Awaited<ReturnType<typeof profile.actions.getById>>;
 }) {
-  const statusMessage = Components.utils.renderStatusMessage(
-    profileResult,
-    "cardTitle"
-  );
+  const statusMessage = lib.ui.renderStatusMessage(profileResult, "cardTitle");
   if (statusMessage || !profileResult.ok) return statusMessage;
 
   const { data: user } = profileResult;

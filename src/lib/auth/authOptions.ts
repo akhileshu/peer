@@ -3,6 +3,9 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
+/**
+ * https://authjs.dev/guides/refresh-token-rotation#database-strategy
+ */
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(myPrisma),
   providers: [
@@ -13,7 +16,8 @@ export const authOptions: AuthOptions = {
         params: {
           scope:
             "openid email profile https://www.googleapis.com/auth/calendar.events",
-          prompt: "consent", //It forces Google to show the consent popup every time,even if you're already signed into Google
+          // access_type: "offline",prompt: "consent" required for refresh token
+          prompt: "consent", // select_account | consent
           access_type: "offline",
           response_type: "code",
         },
@@ -26,30 +30,89 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user, account, trigger, session }) {
+      const utils = {
+        setTokenOnFirstLogin: () => {
+          if (account && account.access_token && account.expires_at) {
+            token.access_token = account.access_token;
+            token.refresh_token = account.refresh_token;
+            token.expires_at = account.expires_at;
+            if (user) token.id = user.id;
+          }
+        },
+        refreshExpiredToken: async () => {
+          if (!token.refresh_token) return;
+          try {
+            const response = await fetch(
+              "https://oauth2.googleapis.com/token",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                  client_id: process.env.GOOGLE_CLIENT_ID!,
+                  client_secret: process.env.GOOGLE_CLIENT_SECRET!,
+                  grant_type: "refresh_token",
+                  refresh_token: token.refresh_token,
+                }),
+              }
+            );
+
+            const refreshed = await response.json();
+
+            if (!response.ok) throw refreshed;
+
+            token.access_token = refreshed.access_token;
+            token.expires_at = Math.floor(
+              Date.now() / 1000 + refreshed.expires_in
+            );
+            token.refresh_token =
+              refreshed.refresh_token ?? token.refresh_token;
+          } catch (error) {
+            console.error("🔴 Error refreshing access token", error);
+            token.error = "RefreshTokenError";
+          }
+        },
+        setUserInfoInToken: async () => {
+          const dbUser = await myPrisma.user.findUnique({
+            where: { id: token.id as string },
+          });
+          if (dbUser)
+            token.isProfileSetupDone = dbUser.isProfileSetupDone ?? false;
+        },
+        getTokenStatus: () => {
+          const isTokenValidOnSubsequentRequest =
+            Date.now() < (token.expires_at ?? 0) * 1000;
+          const shouldRefreshToken =
+            !isTokenValidOnSubsequentRequest && !!token.refresh_token;
+          return { isTokenValidOnSubsequentRequest, shouldRefreshToken };
+        },
+      };
+
       if (trigger === "update" && session.isProfileSetupDone !== undefined) {
         token.isProfileSetupDone = session.isProfileSetupDone;
         return token;
       }
-      if (account?.access_token) {
-        token.accessToken = account.access_token;
-      }
 
-      if (user) token.id = user.id;
+      const { shouldRefreshToken } = utils.getTokenStatus();
+      if (account) utils.setTokenOnFirstLogin();
+      else if (shouldRefreshToken) await utils.refreshExpiredToken();
 
-      const dbUser = await myPrisma.user.findUnique({
-        where: { id: token.id as string },
-      });
-      if (dbUser) {
-        token.isProfileSetupDone = dbUser.isProfileSetupDone ?? false;
-      }
+      await utils.setUserInfoInToken();
 
       return token;
     },
+
     async session({ session, token }) {
-      if (session.user && token.id) session.user.id = token.id as string;
-      if (session && token.accessToken) session.accessToken = token.accessToken;
-      if (session.user && token.isProfileSetupDone !== undefined)
-        session.user.isProfileSetupDone = token.isProfileSetupDone as boolean;
+      function setSessionFromToken() {
+        const { id, access_token, isProfileSetupDone, error } = token;
+        console.log({ token });
+        session.user.id = id;
+        session.accessToken = access_token;
+        session.user.isProfileSetupDone = isProfileSetupDone;
+        if (error) session.error = error;
+      }
+      setSessionFromToken();
       return session;
     },
   },

@@ -1,3 +1,4 @@
+"use client";
 import { AppCard } from "@/components/app/card";
 import { cn } from "@/lib/utils";
 import { useState } from "react";

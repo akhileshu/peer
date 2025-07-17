@@ -1,19 +1,34 @@
-import Link from "next/link";
-import { getServerUser } from "@/lib/auth/lib";
+import { lib } from "@/lib";
 import { profile } from "@/services/profile";
+import Link from "next/link";
 
 export default async function Page() {
-  const requestsResult = await profile.actions.getAll();
-  const user = await getServerUser();
+  let user;
+  try {
+    user = await lib.auth.getServerUser();
+  } catch (err) {
+    return (
+      <p className="text-center text-red-500">
+        Failed to fetch user session. Please log in again.
+      </p>
+    );
+  }
+
+  const profileResult = lib.actionHandler.checkFetchResult(
+    await profile.actions.getAll(),
+    "user profile's"
+  );
+  if (profileResult.failed) return profileResult.status;
+  const { data: profiles } = profileResult.res;
 
   return (
     <div className="p-4 space-y-4">
       <h1 className="text-xl font-bold">All Profiles</h1>
-      {requestsResult.length === 0 ? (
+      {profiles.length === 0 ? (
         <p>No profiles found.</p>
       ) : (
         <ul className="space-y-2">
-          {requestsResult
+          {profiles
             .filter((profile) => profile.id !== user.id)
             .map((profile) => (
               <li

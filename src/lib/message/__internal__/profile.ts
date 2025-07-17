@@ -37,4 +37,8 @@ export const profileMessages = defineMessages({
     type: "error",
     text: "Invalid input data. Please check and try again.",
   },
+  PROFILE_UPDATE_FAILED: {
+    type: "error",
+    text: "PROFILE_UPDATE_FAILED",
+  },
 });

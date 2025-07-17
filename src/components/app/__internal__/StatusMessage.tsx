@@ -11,7 +11,7 @@ export function StatusMessage({
 }: {
   className?: string;
   message: AppMessage;
-  cardTitle: ReactNode | string;
+  cardTitle?: ReactNode | string;
 }) {
   const InfoCard = (
     <div

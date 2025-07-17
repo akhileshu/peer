@@ -4,16 +4,17 @@ import { DialogComponent } from "@/components/app/dialog";
 import { initialState } from "@/lib/server-actions/handleAction";
 import { useActionState, useEffect, useRef } from "react";
 
-import { meetingActions } from "..";
 import { Components } from "@/components";
+import { lib } from "@/lib";
+import { meeting } from "@/services/meeting";
 
 export function ScheduleMeetingDialog({ userEmail }: { userEmail: string }) {
   const [state, formAction, isPending] = useActionState(
-    meetingActions.scheduleMeeting,
+    meeting.actions.scheduleMeeting,
     initialState
   );
   const dialogCloseButtonRef = useRef<HTMLButtonElement>(null);
-  Components.utils.useHandleFormState({
+  lib.ui.useHandleFormState({
     state,
   });
   useEffect(() => {

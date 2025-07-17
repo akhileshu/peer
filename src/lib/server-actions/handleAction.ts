@@ -3,12 +3,11 @@ import { AppMessage } from "@/lib/message/define-messages";
 import { getMessage } from "@/lib/message/get-message";
 import { Prisma } from "@prisma/client";
 import { z, ZodSchema } from "zod";
-import {
-  FetchResponse,
-  MutateResponse,
-} from "@/lib/server-actions/types";
+import { FetchResponse, MutateResponse } from "@/lib/server-actions/types";
 import { getErrorMessage } from "@/lib/utils/utils";
 import { FieldErrors } from "@/lib/server-actions/__internal__/types";
+import { renderStatusMessage } from "@/lib/utils/renderStatusMessage";
+import { JSX } from "react";
 
 export const fetchSuccess = <T>(
   data: NonNullable<T>,
@@ -160,3 +159,20 @@ export const initialState = {
   fieldErrors: null,
   message: getMessage("common", "DEFAULT_MESSAGE"),
 };
+
+/**
+ * @usage
+ - const result = checkFetchFailure(await someAction(), "key");
+ - if (result.failed) return result.status;
+ - const { data } = result.res;
+ */
+export function checkFetchResult<T>(
+  res: FetchResponse<T>,
+  cardTitle?: string
+):
+  | { failed: true; status: JSX.Element | null }
+  | { failed: false; res: FetchResponse<T> & { ok: true } } {
+  const status = renderStatusMessage(res, cardTitle);
+  if (status || !res.ok) return { failed: true, status };
+  return { failed: false, res };
+}

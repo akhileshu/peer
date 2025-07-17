@@ -1,6 +1,7 @@
 "use client";
 import { Components } from "@/components";
 import { AppCard } from "@/components/app/card";
+import { lib } from "@/lib";
 
 import { initialState } from "@/lib/server-actions/handleAction";
 import { profile } from "@/services/profile";
@@ -16,8 +17,7 @@ export default function SetupProfile() {
   );
   const { fieldErrors } = state;
   const {userInput:{LabeledField}}=Components
-
-  Components.utils.useHandleFormState({
+  lib.ui.useHandleFormState({
     state,
     revalidatePath: "/placeholderPath",
     navigateTo: "/api/auth/session",

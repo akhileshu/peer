@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { SelectOption } from "./Select";
 import { FieldError } from "./__internal__/FieldError";

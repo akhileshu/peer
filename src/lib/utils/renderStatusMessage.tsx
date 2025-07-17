@@ -1,10 +1,10 @@
 import { FetchResponse } from "@/lib/server-actions/types";
-import { StatusMessage } from "./__internal__/StatusMessage";
+import { StatusMessage } from "../../components/app/__internal__/StatusMessage";
 import { ReactNode } from "react";
 
 export function renderStatusMessage<T>(
   result: FetchResponse<T>,
-  cardTitle: ReactNode | string,
+  cardTitle?: ReactNode | string,
   emptyListMessage = "No items found.",
   showEmpty = true
 ) {

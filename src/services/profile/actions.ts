@@ -12,33 +12,35 @@ import {
   mutateSuccess,
 } from "@/lib/server-actions/handleAction";
 import { setupProfileSchema } from "./zodSchema";
-import { User } from "@prisma/client";
+import { Domain, User } from "@prisma/client";
 import { FetchResponse, MutateResponse } from "@/lib/server-actions/types";
 
-export async function setupProfile(
-  _: unknown,
-  formData: FormData
-): Promise<MutateResponse<undefined, typeof setupProfileSchema>> {
-  return handleMutateAction(async () => {
+export async function setupProfile(_: unknown, formData: FormData) {
+  async function method(): Promise<
+    MutateResponse<undefined, typeof setupProfileSchema>
+  > {
     const user = await getServerUser();
     if (!user) return mutateErrorNotLoggedIn;
 
     const parsedFormData = Object.fromEntries(formData.entries());
     const arrayKeys = ["intents", "matchPreferences", "preferredDays"];
-    // todo: need to extract formdata modificaton logic into helper
+
+    // TODO: move to helper
     arrayKeys.forEach((key) => {
-      // @ts-expect-error: FormData.getAll returns FormDataEntryValue[] which isn't assignable directly to parsedFormData
+      // @ts-expect-error
       parsedFormData[key] = formData.getAll(key);
     });
-    // @ts-expect-error: FormData
+    // @ts-expect-error
     parsedFormData.prefersWeekends = formData.get("prefersWeekends") === "on";
 
     const { data, error } = setupProfileSchema.safeParse(parsedFormData);
-    if (error)
+    if (error) {
       return mutateError(
         getMessage("profile", "INVALID_INPUT"),
         error.formErrors.fieldErrors
       );
+    }
+
     const {
       domain,
       endTime,
@@ -50,6 +52,7 @@ export async function setupProfile(
       skills,
       startTime,
     } = data;
+
     await myPrisma.user.update({
       where: { id: user.id },
       data: {
@@ -67,30 +70,56 @@ export async function setupProfile(
         },
       },
     });
-    //   revalidatePath("/");
-    //   redirect("/");
+
     return mutateSuccess(getMessage("profile", "PROFILE_UPDATED"));
-  });
+  }
+
+  return handleMutateAction(
+    method,
+    getMessage("profile", "PROFILE_UPDATE_FAILED").text
+  );
 }
 
-export async function getProfileById(
-  userId: string
-): Promise<FetchResponse<User>> {
-  return handleFetchAction(async () => {
+export async function getProfileById(userId: string) {
+  async function method(): Promise<FetchResponse<User>> {
     const user = await myPrisma.user.findUnique({
       where: { id: userId },
     });
     if (!user) return fetchError(getMessage("profile", "PROFILE_UPDATED"));
     return fetchSuccess(user);
-  });
+  }
+  return handleFetchAction(
+    method,
+    getMessage("profile", "PROFILE_NOT_FOUND").text
+  );
 }
 
-// Get all public profiles
+
 export async function getAllProfiles() {
-  return await myPrisma.user.findMany({
-    where: { isProfileSetupDone: true },
-    select: { id: true, name: true, domain: true, skills: true, image: true },
-  });
+  async function method(): Promise<
+  FetchResponse<
+  {
+    id: string;
+    name: string | null;
+    image: string | null;
+    domain: Domain | null;
+    skills: string[];
+  }[]
+  >
+  > {
+    const users = await myPrisma.user.findMany({
+      where: { isProfileSetupDone: true },
+      select: { id: true, name: true, domain: true, skills: true, image: true },
+    });
+    return fetchSuccess(users);
+  }
+  
+  // below code not verified ===========================================================================
+  
+  return handleFetchAction(
+    method,
+    getMessage("profile", "PROFILE_NOT_FOUND").text
+  );
 }
 
 // Update own profile

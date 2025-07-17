@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // tsconfigPath: "tsconfig.dev.json",
+  compiler: {
+    removeConsole: false,
+  },
   reactStrictMode: false, // Disable for faster renders
   swcMinify: false, // Disable minification
   compress: false, // No compression in dev
@@ -9,8 +12,19 @@ const nextConfig: NextConfig = {
 
   // Disable all image optimization
   images: {
-    unoptimized: true,
-    domains: [], // Empty array disables all remote images
+    /**
+    to allow all domains - drop uniptimized , domains and use remotepatterns - http , *
+    https://stackoverflow.com/questions/71235874/how-to-allow-all-domains-for-image-nextjs-config
+     */
+
+    // unoptimized: true,
+    // domains: [], // Empty array disables all remote images
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
 
   // Aggressive memory management

@@ -1,15 +1,13 @@
-
 import { authMessages } from "@/lib/message/__internal__/auth";
 import { commonMessages } from "@/lib/message/__internal__/common";
-import { profileMessages } from "@/services/profile/message";
+import { connectionRequestMessages } from "@/lib/message/__internal__/connectionRequest";
+import { meetingMessages } from "@/lib/message/__internal__/meeting";
+import { profileMessages } from "@/lib/message/__internal__/profile";
 
 export const appMessages = {
   profile: profileMessages,
   auth: authMessages,
   common: commonMessages,
-  /*
-  post: postMessages,
-  bookmark: bookmarkMessages,
-  connection: connectionMessages,
-  */
+  connectionRequest: connectionRequestMessages,
+  meeting: meetingMessages,
 };

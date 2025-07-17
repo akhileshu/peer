@@ -6,10 +6,14 @@ import Image from "next/image";
 
 import { useRouter } from "next/navigation";
 
-const {Button}=Components.userInput
+const { Button } = Components.userInput;
 
 export default function AuthStatus() {
   const { data: session } = useSession();
+  if (session?.error === "RefreshTokenError") {
+    signIn("google"); // Force sign in to obtain a new set of access and refresh tokens
+    return;
+  }
   return (
     <div>
       {session ? (

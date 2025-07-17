@@ -10,13 +10,18 @@ declare module "next-auth" {
       image: string;
       isProfileSetupDone: boolean;
     };
-    accessToken: string;
+    accessToken?: string;
+    error?: "RefreshTokenError";
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
     id: string;
-    accessToken: string;
+    access_token: string;
+    expires_at: number;
+    refresh_token?: string;
+    error?: "RefreshTokenError";
+    isProfileSetupDone: boolean;
   }
 }

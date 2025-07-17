@@ -1,12 +1,27 @@
 {
   "files.exclude": {
+    "**/node_modules/**": true,
+    "**/.git/**": true,
+    "**/.next/**": true,
     "**/.git": true,
     "**/node_modules": true,
+    "**/package-lock.json": true,
     "**/.next": true,
-    "**/dist": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/vendor": true,
     "**/build": true,
+    "**/dist": true,
     "**/.output": true,
-    "**/*.zip": true
+    "**/.nuxt": true,
+    // "**/.vscode": true,
+    "**/*.zip": true,
+    "**/public/**": true,
+    "**/cypress/**": true,
+    "**/**/__internal__/**": true
   },
   "files.watcherExclude": {
     "**/node_modules/**": true,
@@ -27,14 +42,36 @@
     "**/.output": true,
     "**/.nuxt": true,
     // "**/.vscode": true,
-    "**/*.zip": true
+    "**/*.zip": true,
+    "**/public/**": true,
+    "**/cypress/**": true,
+    "**/**/__internal__/**": true
   },
   "search.exclude": {
+    "**/node_modules/**": true,
+    "**/.git/**": true,
+    "**/.next/**": true,
+    "**/.git": true,
     "**/node_modules": true,
+    "**/package-lock.json": true,
+    "**/.next": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/vendor": true,
+    "**/build": true,
     "**/dist": true,
-    "**/.next": true
+    "**/.output": true,
+    "**/.nuxt": true,
+    // "**/.vscode": true,
+    "**/*.zip": true,
+    "**/public/**": true,
+    "**/cypress/**": true,
+    "**/**/__internal__/**": true
   },
-  "typescript.tsserver.maxTsServerMemory": 2048,
+  // "typescript.tsserver.maxTsServerMemory": 2048,
   // "typescript.disableAutomaticTypeAcquisition": false
   "typescript.preferences.importModuleSpecifier": "non-relative",
   // == to ignore eslint problems in specific folder
@@ -44,5 +81,6 @@
     "ignorePattern": ["src/temp/**"]
   },
   //
-  "typescript.disableAutomaticProjectDetection": true
+  "typescript.disableAutomaticProjectDetection": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

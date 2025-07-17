@@ -5,6 +5,9 @@ import { getServerSession } from "next-auth";
 
 const appTag = "[peer-app]";
 
+/**
+ * attendees - loggedin user - who is creating the meeting is automatically added , as he organizer
+ */
 export async function createMeetEvent({
   summary = "1:1 Google Meet",
   description = "Meeting between two users",
@@ -53,7 +56,7 @@ export async function createMeetEvent({
   return event.data;
 }
 
-export async function listGoogleEvents() {
+export async function getGoogleEvents() {
   const calendar = google.calendar({
     version: "v3",
     auth: await getGoogleOAuth2Client(),
@@ -71,8 +74,10 @@ export async function listGoogleEvents() {
   return res.data.items || [];
 }
 
-export async function hasMeetingWithUser(targetEmail: string): Promise<boolean> {
-  const events = await listGoogleEvents();
+export async function hasMeetingWithUser(
+  targetEmail: string
+): Promise<boolean> {
+  const events = await getGoogleEvents();
   return events.some((event) =>
     event.attendees?.some((a) => a.email === targetEmail)
   );
@@ -81,8 +86,21 @@ export async function hasMeetingWithUser(targetEmail: string): Promise<boolean> 
 async function getGoogleOAuth2Client() {
   const session = await getServerSession(authOptions);
   const accessToken = session?.accessToken;
-  if (!accessToken) throw new Error("no access token");
+  if (!accessToken) throw new Error("Access token missing in session");
   const auth = new google.auth.OAuth2();
   auth.setCredentials({ access_token: accessToken });
   return auth;
 }
+
+// async function getGoogleOAuth2Client(refreshToken: string) {
+//   const client = new google.auth.OAuth2(
+//     process.env.GOOGLE_CLIENT_ID!,
+//     process.env.GOOGLE_CLIENT_SECRET!,
+//     process.env.GOOGLE_REDIRECT_URI! // must match your Google config
+//   );
+
+//   const { credentials } = await client.refreshToken(refreshToken);
+//   client.setCredentials(credentials);
+
+//   return client;
+// }

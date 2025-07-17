@@ -8,11 +8,8 @@ import { Input } from "@/components/app/form-and-inputs/Input";
 import { LabeledField } from "@/components/app/form-and-inputs/LabeledField";
 import { MultiSelect } from "@/components/app/form-and-inputs/MultiSelect";
 import { Select } from "@/components/app/form-and-inputs/Select";
-import { useHandleFormState } from "@/components/app/form-and-inputs/useHandleFormState";
-import { logFormData } from "@/components/app/form-and-inputs/utils";
 import { HoverDropdown } from "@/components/app/hover-dropdown";
 import { AppLink } from "@/components/app/link";
-import { renderStatusMessage } from "@/components/app/renderStatusMessage";
 
 export const Components = {
   Image: AppImg,
@@ -20,11 +17,6 @@ export const Components = {
   Dialog: DialogComponent,
   HoverDropdown: HoverDropdown,
   Link: AppLink,
-  utils: {
-    renderStatusMessage,
-    useHandleFormState,
-    logFormData,
-  },
   userInput: {
     Button: Button,
     SubmitButton: SubmitButton,

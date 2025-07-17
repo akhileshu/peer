@@ -5,6 +5,12 @@ export const getPreviewText = (content: string, length = 100) =>
 
 export const formatDate = (date: Date) => new Date(date).toLocaleDateString();
 
+
+export function logFormData(form: HTMLFormElement) {
+  const data = new FormData(form);
+  console.log(Object.fromEntries(data));
+}
+
 export const APP_SETTINGS = {
   isProd: process.env.NODE_ENV === "production",
   limits: {

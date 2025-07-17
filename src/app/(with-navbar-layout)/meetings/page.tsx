@@ -1,7 +1,7 @@
-import { listGoogleEvents } from "@/services/meeting/lib";
+import { getGoogleEvents } from "@/services/meeting/lib";
 
 export default async function EventsPage() {
-  const events = await listGoogleEvents();
+  const events = await getGoogleEvents();
 
   return (
     <div className="space-y-4 p-4">
