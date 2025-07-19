@@ -10,6 +10,7 @@ import { MultiSelect } from "@/components/app/form-and-inputs/MultiSelect";
 import { Select } from "@/components/app/form-and-inputs/Select";
 import { HoverDropdown } from "@/components/app/hover-dropdown";
 import { AppLink } from "@/components/app/link";
+import TreeDropdownRoot from "@/components/app/TreeDropdown/TreeDropdown";
 
 export const Components = {
   Image: AppImg,
@@ -26,5 +27,6 @@ export const Components = {
     MultiSelect: MultiSelect,
     Select: Select,
     Input: Input,
+    TreeDropdownRoot,
   },
 } as const;

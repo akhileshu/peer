@@ -1,3 +1,7 @@
+import {
+  TreeDataFetcher,
+  treeDataInitialConfig,
+} from "@/components/app/TreeDropdown/config/tree-data";
 import { authOptions } from "@/lib/auth/authOptions";
 import { getServerUser } from "@/lib/auth/lib";
 import { checkLimit, incrementLimit } from "@/lib/limit-db-writes/limitHandler";
@@ -11,7 +15,7 @@ import {
   handleMutateAction,
   initialState,
   mutateError,
-  mutateSuccess
+  mutateSuccess,
 } from "@/lib/server-actions/handleAction";
 import { getInternalHref } from "@/lib/utils/getInternalHref";
 import { myPrisma } from "@/lib/utils/prisma";
@@ -26,6 +30,7 @@ import {
   getErrorMessage,
   getPreviewText,
   logFormData,
+  logTree,
 } from "@/lib/utils/utils";
 
 export const lib = {
@@ -43,6 +48,10 @@ export const lib = {
   ui: {
     renderStatusMessage,
     useHandleFormState,
+    treeDropdownConfig: {
+      treeDataInitialConfig,
+      TreeDataFetcher,
+    },
   },
   utils: {
     useQueryParamHandler,
@@ -52,6 +61,7 @@ export const lib = {
     getPreviewText,
     revalidatePathAction,
     logFormData,
+    logTree,
   },
   config: {
     APP_SETTINGS,

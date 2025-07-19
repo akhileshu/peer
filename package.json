@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "zzdev": "NEXT_DISABLE_TYPE_CHECKING=true next dev",
+    "migrate:all": "npx prisma migrate dev --name $npm_config_name && npx prisma generate",
+    "db:reset": "npx prisma migrate reset",
     "dev": "next dev --turbo",
+    "debug": "NODE_OPTIONS='--inspect' next dev --turbo",
     "dev:server": "NODE_ENV=development next dev --turbo --port 3000",
     "dev-old": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' src/server.ts",
     "plop": "cross-env NODE_OPTIONS=\"--import tsx\" plop --plopfile=plopfile.ts",
@@ -18,7 +21,7 @@
     "typecheck:watch": "tsc -w"
   },
   "prisma": {
-    "zzseed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed/index.ts"
+    "seed": "ts-node --project tsconfig.mod.commonjs.json prisma/seed/index.ts"
   },
   "dependencies": {
     "@babel/standalone": "^7.26.10",
@@ -38,6 +41,7 @@
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
     "sonner": "^2.0.1",
     "tailwind-merge": "^3.0.2",
     "zod": "^3.24.2"

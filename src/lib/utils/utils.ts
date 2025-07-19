@@ -25,3 +25,10 @@ export function getErrorMessage(error: unknown): string {
   if (typeof error === "string") return error;
   return "An unexpected error occurred.";
 }
+
+export function logTree(label: string, tree: unknown) {
+  console.group(label);
+  console.dir(tree, { depth: null });
+  console.log("JSON:", JSON.stringify(tree, null, 2));
+  console.groupEnd();
+}

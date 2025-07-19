@@ -8,28 +8,67 @@ model User {
   sessions           Session[]
   isProfileSetupDone Boolean   @default(false)
 
-  // role Role @default(DEVELOPER)
-
-  availability     Availability?
-  intents          UserIntent[]
-  matchPreferences MatchPreference[]
-  domain           Domain?
-  skills           String[] // freeform or tag-based skills e.g., React, Node.js, Docker
-  interests        String[] // optional: ["Open Source", "Hackathons",  System Design, AI]
-  sentRequests     FriendRequest[]   @relation("SentRequests")
-  receivedRequests FriendRequest[]   @relation("ReceivedRequests")
+  // Core Relations
+  preferences UserPreference?
+  connections Connection[]    @relation("UserConnections")
+  Connection  Connection[] // Optional: reverse relation
 
   @@map("users")
 }
 
+model UserPreference {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  persona          PersonaType
+  areaOfFocus      AreaOfFocus?
+  availability     Availability?
+  matchPreferences MatchPreference[]
+  // domain           Domain?
+  // skills           String[] // e.g., ["React", "Node.js", "Docker"]
+  // interests        String[] // e.g., ["Open Source", "System Design"]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  availabilityId String?
+
+  @@map("UserPreferences")
+}
+
+model AreaOfFocus {
+  id        String     @id
+  name      String     @unique
+  skills    Skill[]    @relation("FocusSkills")
+  interests Interest[] @relation("FocusInterests")
+
+  // Relation to UserPreference (optional)
+  userPreferences   UserPreference? @relation(fields: [userPreferencesId], references: [id])
+  userPreferencesId String?         @unique // Removed `@unique` to allow multiple focuses per pref
+
+  @@map("area_of_focus")
+}
+
+model Skill {
+  id      String        @id
+  label   String
+  focuses AreaOfFocus[] @relation("FocusSkills")
+}
+
+model Interest {
+  id      String        @id
+  label   String
+  focuses AreaOfFocus[] @relation("FocusInterests")
+}
+
 model Availability {
-  id              String    @id @default(cuid())
-  user            User      @relation(fields: [userId], references: [id])
-  userId          String    @unique
-  preferredDays   Weekday[]
-  startTime       String // "18:00"
-  endTime         String // "21:00"
-  prefersWeekends Boolean
+  id               String         @id @default(cuid())
+  UserPreference   UserPreference @relation(fields: [UserPreferenceId], references: [id])
+  UserPreferenceId String         @unique
+  preferredDays    Weekday[]
+  startTime        String // "18:00"
+  endTime          String // "21:00"
+  prefersWeekends  Boolean
 }
 
 enum Weekday {
@@ -42,11 +81,13 @@ enum Weekday {
   Sunday
 }
 
-enum UserIntent {
-  Learn
-  Collaborate
-  ContributeOrMentor
-  GetHelp
+enum PersonaType {
+  LEARNER
+  MENTOR
+  COLLABORATOR
+  PRODUCT_IMPROVER
+  SHOWCASER
+  NETWORKER
 }
 
 enum MatchPreference {
@@ -55,27 +96,31 @@ enum MatchPreference {
   SharedGoals
 }
 
-enum Domain {
-  Frontend
-  Backend
-  DevOps
-  Fullstack
-  Mobile
-  Data
+/**
+ * enum Domain {
+ * Frontend
+ * Backend
+ * DevOps
+ * Fullstack
+ * Mobile
+ * Data
+ * }
+ */
+
+model Connection {
+  id         String           @id @default(cuid())
+  fromUserId String
+  toUserId   String
+  status     ConnectionStatus @default(PENDING)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  fromUser User @relation("UserConnections", fields: [fromUserId], references: [id])
+  toUser   User @relation(fields: [toUserId], references: [id])
 }
 
-model FriendRequest {
-  id         String        @id @default(uuid())
-  sender     User          @relation("SentRequests", fields: [senderId], references: [id])
-  senderId   String
-  receiver   User          @relation("ReceivedRequests", fields: [receiverId], references: [id])
-  receiverId String
-  status     RequestStatus @default(PENDING)
-  createdAt  DateTime      @default(now())
-}
-
-enum RequestStatus {
+enum ConnectionStatus {
   PENDING
   ACCEPTED
-  DECLINED
+  REJECTED
 }

@@ -1,15 +1,14 @@
 import { Components } from "@/components";
+import { lib } from "@/lib";
+import React from "react";
 
-export default function Home() {
+function page() {
   return (
-    <main>
-      <h1>welcome to solo to squard - landing page</h1>
-      <Components.Link
-        title="Find new people to connect with"
-        href="/connections/recommendations"
-      >
-        Explore Connections
-      </Components.Link>
-    </main>
+    <div>
+      <div>welcome to my app</div>
+      <Components.userInput.TreeDropdownRoot treeDataInitialConfig={lib.ui.treeDropdownConfig.treeDataInitialConfig}/>
+    </div>
   );
 }
+
+export default page;

@@ -31,7 +31,7 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async redirect({ url, baseUrl }) {
-      return "/feedz"; // always redirect to /feed after login
+      return "/feed"; // always redirect to /feed after login
     },
     async jwt({ token, user, account, trigger, session }) {
       const utils = {
